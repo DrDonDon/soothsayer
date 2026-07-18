@@ -75,20 +75,18 @@ def cmd_demo(_args) -> int:
 
 
 def cmd_check(args) -> int:
+    # Soothsayer runs as Claude Code skills; the model is your Claude subscription,
+    # so no API key is needed. This only sanity-checks the config.
     cfg = Config.load(args.config)
     print(f"author model:   {cfg.author_model}")
     print(f"reviewer model: {cfg.reviewer_model}")
-    print(f"redact before send: {cfg.redact_before_send}")
-    print(f"key ({cfg.provider_key_env}): {'present' if cfg.key_present() else 'MISSING'}")
     problems = cfg.validate()
-    if not cfg.key_present():
-        problems.append(f"no API key in ${cfg.provider_key_env} (needed for live model calls)")
     if problems:
         print("\nissues:")
         for p in problems:
             print(f"  - {p}")
         return 1
-    print("\nconfig OK — model diversity satisfied, key present.")
+    print("\nconfig OK.")
     return 0
 
 
