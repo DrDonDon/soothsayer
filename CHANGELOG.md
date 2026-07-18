@@ -1,5 +1,14 @@
 # Changelog
 
+## 0.1.3 — /sooth-define interrogates
+
+Feedback: define was good but too easily satisfied. It now asks hard clarifying
+questions, one at a time, and pushes on vague answers before it writes the brief.
+Specificity is the currency: a category is not a person, "soon" is not a date, and
+a thesis everyone agrees with is not a perspective. It will say the ask is not
+ready rather than dress a fuzzy brief up as a clear one. Mode-specific probes for
+both decisions and perspectives.
+
 ## 0.1.2 — two modes: decisions and perspectives
 
 Feedback: Soothsayer only worked for a decision. `/sooth-define` hard-refused
