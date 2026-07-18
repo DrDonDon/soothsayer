@@ -50,6 +50,22 @@ class StoreTests(unittest.TestCase):
         with self.assertRaises(ImmutabilityError):
             self.store.add_evidence(r2)
 
+    def test_same_fact_different_ghost_cell_is_distinct(self):
+        # Regression: BUG-1 — id omitted ghost_cell_id but the immutability check
+        # compared full content, so the same fact in two ghost cells collided on
+        # id and the second add raised a false ImmutabilityError.
+        # Found by /qa on 2026-07-18.
+        a = EvidenceRecord(claim="x", source_url="u", verbatim_extract="x",
+                           source_tier=Tier.T1, fetch_date="2026-07-18", fetch_hash="h",
+                           ghost_cell_id="cellA")
+        b = EvidenceRecord(claim="x", source_url="u", verbatim_extract="x",
+                           source_tier=Tier.T1, fetch_date="2026-07-18", fetch_hash="h",
+                           ghost_cell_id="cellB")
+        self.assertNotEqual(a.id, b.id)
+        self.store.add_evidence(a)
+        self.store.add_evidence(b)  # must not raise
+        self.assertEqual(len(self.store.evidence()), 2)
+
     def test_decision_log_append(self):
         self.store.append_decision({"decision": "accept", "id": 1})
         self.store.append_decision({"decision": "reject", "id": 2})

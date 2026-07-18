@@ -57,6 +57,11 @@ class EvidenceRecord:
 
     def __post_init__(self) -> None:
         if not self.id:
+            # Hash EVERY persisted field (all of to_dict except id). Keep this in
+            # sync with to_dict: if the id omitted a stored field, two records
+            # that differ only in that field would collide on id, and the store's
+            # content-equality immutability check would then raise a false
+            # ImmutabilityError on a legitimate write.
             payload = {
                 "claim": self.claim,
                 "source_url": self.source_url,
@@ -66,6 +71,7 @@ class EvidenceRecord:
                 "fetch_hash": self.fetch_hash,
                 "publication_date": self.publication_date,
                 "value": self.value,
+                "ghost_cell_id": self.ghost_cell_id,
                 "origin_trace": self.origin_trace,
             }
             object.__setattr__(self, "id", _hash_payload(payload))
