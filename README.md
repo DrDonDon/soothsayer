@@ -67,7 +67,7 @@ case and a bad one:
 ## Install
 
 ```
-git clone <your-fork>/soothsayer
+git clone https://github.com/DrDonDon/soothsayer.git
 cd soothsayer
 ./setup
 export PATH="$PWD/bin:$PATH"

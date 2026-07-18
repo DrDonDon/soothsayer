@@ -18,7 +18,7 @@ Thanks for helping. Soothsayer aims to be small, honest, and well-tested.
 ## Setup
 
 ```
-git clone <your-fork>/soothsayer
+git clone https://github.com/DrDonDon/soothsayer.git
 cd soothsayer
 ./setup                 # checks Python and runs the tests
 ```
