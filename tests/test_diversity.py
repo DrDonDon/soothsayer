@@ -36,6 +36,24 @@ class ConfigValidation(unittest.TestCase):
         cfg = Config(author_model="x", reviewer_model="y")
         self.assertEqual(cfg.validate(), [])
 
+    def test_stringy_allow_same_model_still_flags(self):
+        # Regression: BUG-2 — a JSON string "false" for allow_same_model was
+        # truthy and silently disabled the diversity gate.
+        # Found by /qa on 2026-07-18.
+        cfg = Config(author_model="x", reviewer_model="x", allow_same_model="false")
+        self.assertTrue(cfg.validate(), "stringy 'false' must not disable the diversity check")
+
+    def test_load_coerces_string_bools(self):
+        import json, tempfile, os
+        with tempfile.TemporaryDirectory() as d:
+            p = os.path.join(d, "config.json")
+            with open(p, "w") as fh:
+                json.dump({"author_model": "x", "reviewer_model": "x",
+                           "allow_same_model": "false"}, fh)
+            cfg = Config.load(p, environ={})
+            self.assertIs(cfg.allow_same_model, False)
+            self.assertTrue(cfg.validate())
+
     def test_key_present(self):
         cfg = Config(provider_key_env="SOOTHSAYER_TEST_KEY")
         self.assertFalse(cfg.key_present({}))
