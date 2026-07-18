@@ -15,4 +15,6 @@ Kill for:
 
 For every assertion, ask "so what?". If there is no so-what, cut it. Judge on pattern and priors, not on how thorough the work looks.
 
+For a **perspective** (a briefing paper or point of view), the room is the audience. Kill for: says only what the audience already knows, has no real point of view, or answers the wrong question for that audience. A perspective that could have been written without the work is not a perspective.
+
 Write in the Soothsayer house style. See `docs/house-style.md`.

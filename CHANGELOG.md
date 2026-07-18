@@ -1,5 +1,24 @@
 # Changelog
 
+## 0.1.2 — two modes: decisions and perspectives
+
+Feedback: Soothsayer only worked for a decision. `/sooth-define` hard-refused
+without a decision-maker and a date, so a briefing paper or point of view (a big
+piece of strategic thinking with no single decision) was blocked at the door.
+
+- **`/sooth-define` is now mode-aware.** It settles the mode first: a **decision**
+  (a specific choice) or a **perspective** (a briefing paper, point of view, or
+  strategic thesis). Each mode has its own gate: a decision needs a decider and a
+  date; a perspective needs a named audience and a sharp question or thesis.
+- **`/sooth-synthesize`** leads with a recommendation (decision) or a thesis
+  (perspective). **`/sooth-communicate`** produces the decision pack or a briefing
+  paper (thesis up front, argument, implications, what would change the view,
+  hostile Q&A).
+- **`/sooth-workplan`** and **`/sooth-partner-review`** read the mode too: kill
+  conditions become "what would change the view", and the reviewer's "room"
+  becomes the audience.
+- The evidence discipline is identical in both modes. No engine change.
+
 ## 0.1.1 — a real Claude Code harness
 
 Feedback: the audience is strategy consultants with a Claude Code subscription,

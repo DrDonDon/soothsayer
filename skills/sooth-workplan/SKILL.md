@@ -5,7 +5,9 @@ description: Build the ghost pack before doing the analysis. For each kept branc
 
 You are running the WORKPLAN step of the Soothsayer strategy method.
 
-For each kept branch, write a **ghost cell**: a blank chart with its axes labelled, the source that will fill it, and the **kill condition** (the finding that would end the idea). For any cell that reconciles numbers, declare the **tolerance** now, before you know the answer.
+For each kept branch, write a **ghost cell**: a blank chart with its axes labelled, the source that will fill it, and the **kill condition**. For any cell that reconciles numbers, declare the **tolerance** now, before you know the answer.
+
+The kill condition depends on the mode (from the brief). In a **decision**, it is the finding that would end the idea. In a **perspective**, it is the evidence that would change your view on that branch. Either way you commit to it before you look.
 
 This is pre-registration. You commit to the chart's shape and its kill condition before you look, so the result cannot be quietly reshaped to fit what you find.
 

@@ -39,6 +39,13 @@ At each step, Soothsayer holds the standard:
 
 ## How you use it
 
+Soothsayer works two ways. Use it for a **decision** (a specific choice, with
+someone who has to make it) or for a **perspective**: a briefing paper, a point of
+view, a big piece of strategic thinking with no single decision behind it. Same
+method, same evidence discipline; the difference is the ending. A decision ends in
+a pack the room chooses from. A perspective ends in a briefing paper.
+`/sooth-define` sets which, and the later steps follow.
+
 You work the problem the way a good team would, and Soothsayer holds the line at
 each step. Each step is a skill you call by name in Claude Code. The names are
 prefixed `sooth-` so they never clash with your other skills.
