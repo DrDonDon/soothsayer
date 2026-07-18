@@ -12,6 +12,7 @@ it as a separate process (see TODOS: real process isolation).
 
 from __future__ import annotations
 
+import json
 from dataclasses import dataclass, field
 from typing import Protocol
 
@@ -95,6 +96,22 @@ class MockModel:
             kills_it=assertion.kills_it,
             strength=assertion.strength,
         )
+
+    @classmethod
+    def from_cassette(cls, path: str, name: str = "replay") -> "MockModel":
+        """Replay recorded model responses (test layer C).
+
+        A cassette is JSON: {"name": "...", "reviews": [{"objections": [...]}, ...]}.
+        Recording a real transcript once and replaying it keeps the full skill
+        orchestration testable in CI — deterministic, no live calls, no flakiness.
+        """
+        with open(path, encoding="utf-8") as fh:
+            data = json.load(fh)
+        reviews = [
+            Review(objections=list(r.get("objections", [])), note=r.get("note", ""))
+            for r in data.get("reviews", [])
+        ]
+        return cls(scripted=reviews, name=data.get("name", name))
 
 
 def anthropic_client(model: str = "claude-sonnet-5"):  # pragma: no cover

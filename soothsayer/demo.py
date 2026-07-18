@@ -120,6 +120,23 @@ def run_demo() -> int:
     under = run_review_loop(asrt, ev, MockModel([]), floor=1, max_rounds=2)
     print(f"   agrees too easily   -> {under.status.upper()} (false-convergence guard)")
 
+    print("\n8. Skill refusals as gates (deterministic, no model)")
+    from .artifacts import GhostCell, GhostPack, IssueTree, Synthesis, SynthClaim, TreeNode
+    from .skillgates import ghost_pack_gate, traceability_gate, tree_partition_gate
+
+    traceable = Synthesis([SynthClaim("entry attractive", evidence_ids=[good.id])])
+    untraceable = Synthesis([SynthClaim("the market is huge", evidence_ids=["ghost-id"])])
+    print("   /synthesize traceable claim:", _fmt(traceability_gate(traceable, {good.id})))
+    print("   /synthesize untraceable claim:", _fmt(traceability_gate(untraceable, {good.id})))
+    good_tree = IssueTree(TreeNode("total", value=100, children=[TreeNode("a", value=60), TreeNode("b", value=40)]))
+    bad_tree = IssueTree(TreeNode("total", value=100, children=[TreeNode("a", value=60), TreeNode("b", value=20)]))
+    print("   /tree levels sum:", _fmt(tree_partition_gate(good_tree)))
+    print("   /tree levels do not sum:", _fmt(tree_partition_gate(bad_tree)))
+    print("   /workplan cell with kill condition:",
+          _fmt(ghost_pack_gate(GhostPack([GhostCell(id="c1", source="filing", kill_condition="if <5% stop")]))))
+    print("   /workplan cell missing kill condition:",
+          _fmt(ghost_pack_gate(GhostPack([GhostCell(id="c1", source="filing")]))))
+
     print("\n" + "=" * 44)
     print("Every gate caught its bad case. Validation is the gates, not a score.")
     return 0

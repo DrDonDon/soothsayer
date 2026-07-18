@@ -28,6 +28,16 @@ The walking skeleton, hardened for a public release.
 - `soothsayer check` validates config (model diversity + key presence).
 - CI runs the test suite on Linux, macOS, and Windows.
 
+### Skill testing (layers A, B, C, E — deterministic, in CI)
+- `artifacts.py` — skill output artifacts (ignorance map, issue tree, ghost pack,
+  synthesis) with contract validators (layer A).
+- `skillgates.py` — mechanically-checkable refusals as gates: traceability,
+  tree partition, ghost-pack pre-registration, research scope (layer B).
+- `MockModel.from_cassette` — replay recorded transcripts deterministically (layer C).
+- `pipeline.py` — pack-level gate oracle; adversarial integration test feeds a
+  poisoned pack through and it is rejected (layer E).
+- Layer D (live-model evals with a gold set) remains v0.2.
+
 ### Store, loop, CLI, docs
 - Git-backed append-only document store.
 - CLI: `version`, `init`, `add-evidence`, `gate`, `check`, `demo`.

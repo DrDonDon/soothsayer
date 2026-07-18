@@ -38,3 +38,28 @@ Before an assertion reaches the pack, a trace-starved adversary tries to generat
 its single strongest disconfirming case from date-restricted evidence. The
 assertion must survive it or be weakened. This widens the second diamond's
 divergence: falsification on every live assertion, not a pre-mortem at the end.
+
+## Testing the skills
+
+A skill is a prompt that drives a model, so it splits into what is mechanically
+checkable (tested now, offline, in CI) and what needs judgment (evals, v0.2).
+
+- **Layer A — contract/schema** (`soothsayer/artifacts.py`, `tests/test_artifacts.py`):
+  each skill's output artifact (ignorance map, issue tree, ghost pack, synthesis)
+  parses and validates against its contract.
+- **Layer B — refusals as gates** (`soothsayer/skillgates.py`, `tests/test_skillgates.py`):
+  the checkable refusals, as deterministic gates —
+  `traceability_gate` (`/synthesize` cites only real evidence),
+  `tree_partition_gate` (`/tree` partitions and sums),
+  `ghost_pack_gate` (`/workplan` pre-registers a kill condition + tolerance),
+  `research_scope_gate` (`/research` only fills named ghost cells).
+- **Layer C — golden-transcript replay** (`MockModel.from_cassette`,
+  `tests/test_replay.py`): recorded model responses replay deterministically
+  through the loop, testing orchestration with no live call.
+- **Layer E — adversarial integration** (`soothsayer/pipeline.py`,
+  `tests/test_pipeline_adversarial.py`): a poisoned pack is fed through the gate
+  oracle and rejected; the gate engine is the ground truth for the skills' output.
+- **Layer D — evals** (v0.2, needs the live model + a gold set): the judgment the
+  gates cannot check — does `/inhouse` catch a planted falsehood, does E2 produce
+  a real disconfirming case. N-sample scoring, pinned model versions, a
+  different-model judge.
