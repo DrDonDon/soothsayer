@@ -20,8 +20,23 @@ else
 fi
 
 chmod +x "$HERE/bin/soothsayer"
+
+# Seed a local config the first time (keys stay in the environment, never here).
+mkdir -p "$HERE/.soothsayer"
+if [ ! -f "$HERE/.soothsayer/config.json" ]; then
+  cp "$HERE/config.example.json" "$HERE/.soothsayer/config.json"
+  echo "  wrote .soothsayer/config.json (edit models; key comes from \$ANTHROPIC_API_KEY)"
+fi
+
+echo
+echo "Config check:"
+PYTHONPATH="$HERE" python3 -m soothsayer check --config "$HERE/.soothsayer/config.json" || \
+  echo "  (a missing API key is fine for offline gate/demo use)"
+
 echo
 echo "Done. Add Soothsayer to your PATH:"
 echo "    export PATH=\"$HERE/bin:\$PATH\""
+echo "Or install cross-platform (Windows included):"
+echo "    pip install -e ."
 echo "Then try:"
 echo "    soothsayer demo"

@@ -31,6 +31,11 @@ class Tier(str, Enum):
         return {"T0": 0, "T3": 1, "T2": 2, "T1": 3}[self.value]
 
 
+def content_hash(text: str) -> str:
+    """Stable short hash of raw text (used for source fetch_hash)."""
+    return hashlib.sha256(text.encode("utf-8")).hexdigest()[:16]
+
+
 def _hash_payload(payload: dict) -> str:
     blob = json.dumps(payload, sort_keys=True, ensure_ascii=False)
     return hashlib.sha256(blob.encode("utf-8")).hexdigest()[:16]

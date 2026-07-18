@@ -18,6 +18,11 @@ from typing import Protocol
 from .models import Assertion
 
 
+class ReviewerUnavailable(Exception):
+    """The reviewer model could not be reached. The loop hard-blocks, never
+    ships an un-reviewed assertion silently."""
+
+
 @dataclass
 class Review:
     objections: list = field(default_factory=list)  # substantive objections raised
@@ -25,6 +30,8 @@ class Review:
 
 
 class ModelClient(Protocol):
+    name: str
+
     def review(self, assertion: Assertion, evidence: list) -> Review:
         """Trace-starved review: sees only the assertion and its evidence."""
 
@@ -32,19 +39,48 @@ class ModelClient(Protocol):
         """Produce a revised assertion that addresses the objections."""
 
 
+@dataclass
+class ClientPair:
+    """Author + reviewer, with model diversity enforced.
+
+    A reviewer on the same model as the author is phrasing-independent but not
+    error-independent: it shares blind spots and rubber-stamps correlated
+    mistakes. This refuses that configuration unless explicitly overridden.
+    """
+
+    author: object
+    reviewer: object
+    allow_same_model: bool = False
+
+    def __post_init__(self) -> None:
+        an = getattr(self.author, "name", None)
+        rn = getattr(self.reviewer, "name", None)
+        if not self.allow_same_model and an is not None and an == rn:
+            raise ValueError(
+                f"author and reviewer both use model {an!r}; model diversity is "
+                f"required for real error-independence. Set allow_same_model=True "
+                f"to override (not recommended)."
+            )
+
+
 class MockModel:
     """Scripted reviewer for tests and the demo.
 
     `scripted` is a list of Review objects, returned one per review() call. When
     exhausted, returns an empty Review (no objections). `revise` just annotates
-    the assertion text so successive rounds are distinguishable.
+    the assertion text so successive rounds are distinguishable. Pass `fail=True`
+    to simulate an unavailable provider (raises ReviewerUnavailable).
     """
 
-    def __init__(self, scripted: list | None = None):
+    def __init__(self, scripted: list | None = None, name: str = "mock", fail: bool = False):
         self._scripted = list(scripted or [])
         self._i = 0
+        self.name = name
+        self._fail = fail
 
     def review(self, assertion: Assertion, evidence: list) -> Review:
+        if self._fail:
+            raise ReviewerUnavailable(f"model {self.name!r} unavailable")
         if self._i < len(self._scripted):
             r = self._scripted[self._i]
             self._i += 1

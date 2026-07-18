@@ -9,14 +9,9 @@ also how a real backtest would pin sources).
 
 from __future__ import annotations
 
-import hashlib
 from typing import Protocol
 
-from ..models import EvidenceRecord, GateResult
-
-
-def content_hash(text: str) -> str:
-    return hashlib.sha256(text.encode("utf-8")).hexdigest()[:16]
+from ..models import EvidenceRecord, GateResult, content_hash  # re-exported for compatibility
 
 
 class SourceFetchError(Exception):

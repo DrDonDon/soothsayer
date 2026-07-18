@@ -10,6 +10,7 @@ from __future__ import annotations
 from ..models import Assertion, EvidenceRecord, GateResult
 from .citation import Fetcher, FrozenFetcher, SourceFetchError, citation_gate, content_hash
 from .independence import independence_gate
+from .injection import injection_gate
 from .reconcile import reconcile_gate, segments_sum_gate
 from .staleness import staleness_gate
 from .t0 import t0_gate
@@ -20,6 +21,7 @@ __all__ = [
     "reconcile_gate",
     "segments_sum_gate",
     "citation_gate",
+    "injection_gate",
     "staleness_gate",
     "independence_gate",
     "tier_floor_gate",
@@ -47,6 +49,7 @@ def gate_records(
         results.append(t0_gate(r))
         if fetcher is not None:
             results.append(citation_gate(r, fetcher))
+            results.append(injection_gate(r, fetcher))
         if decision_horizon is not None:
             results.append(staleness_gate(r, decision_horizon, max_age_days))
     if records:

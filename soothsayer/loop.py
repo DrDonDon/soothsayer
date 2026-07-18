@@ -19,11 +19,12 @@ from __future__ import annotations
 from dataclasses import dataclass, field
 
 from .models import Assertion
-from .modelclient import ModelClient, Review
+from .modelclient import ModelClient, ReviewerUnavailable, Review
 
 CONVERGED = "converged"
 ESCALATE = "escalate"
 UNDER_REVIEWED = "under_reviewed"
+BLOCKED = "blocked"  # reviewer unavailable after retries — never ship un-reviewed
 
 
 @dataclass
@@ -35,19 +36,34 @@ class LoopResult:
     trace: list = field(default_factory=list)  # human-readable per-round log
 
 
+def _review_with_retry(model, assertion, evidence, retries):
+    last = None
+    for _ in range(retries + 1):
+        try:
+            return model.review(assertion, evidence)
+        except ReviewerUnavailable as exc:
+            last = exc
+    raise last
+
+
 def run_review_loop(
     assertion: Assertion,
     evidence: list,
     model: ModelClient,
     floor: int = 1,
     max_rounds: int = 3,
+    retries: int = 1,
 ) -> LoopResult:
     objections_seen = 0
     trace: list = []
     last_had_objections = False
 
     for rnd in range(1, max_rounds + 1):
-        review: Review = model.review(assertion, evidence)
+        try:
+            review: Review = _review_with_retry(model, assertion, evidence, retries)
+        except ReviewerUnavailable as exc:
+            trace.append(f"round {rnd}: reviewer unavailable after {retries} retry(ies) -> BLOCKED")
+            return LoopResult(BLOCKED, assertion, objections_seen, rnd, trace)
         n = len(review.objections)
         last_had_objections = n > 0
 
