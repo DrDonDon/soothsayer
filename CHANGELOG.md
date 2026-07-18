@@ -41,7 +41,7 @@ The walking skeleton, hardened for a public release.
 ### Store, loop, CLI, docs
 - Git-backed append-only document store.
 - CLI: `version`, `init`, `add-evidence`, `gate`, `check`, `demo`.
-- README, SECURITY, CONTRIBUTING, ACKNOWLEDGMENTS (gstack), MIT LICENSE.
+- README, SECURITY, CONTRIBUTING, ACKNOWLEDGEMENTS (gstack), MIT LICENSE.
 
 Validation is the in-loop gates only. There is no longitudinal scoring or
 calibration, by design.
