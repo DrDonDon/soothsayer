@@ -1,0 +1,13 @@
+#!/usr/bin/env bash
+# Remove the Soothsayer skills from Claude Code (leaves the repo untouched).
+set -euo pipefail
+SKILLS_DIR="${CLAUDE_SKILLS_DIR:-$HOME/.claude/skills}"
+count=0
+for link in "$SKILLS_DIR"/sooth-*; do
+  [ -e "$link" ] || continue
+  rm -rf "$link"
+  echo "  - $(basename "$link")"
+  count=$((count + 1))
+done
+rm -f "$HOME/.soothsayer/root"
+echo "Removed $count Soothsayer skills."

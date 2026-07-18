@@ -1,8 +1,0 @@
-{
-  "name": "claude-sonnet-5",
-  "recorded": "example transcript — replace with a real recording when the live client lands",
-  "reviews": [
-    { "objections": ["sizing looks optimistic vs the bottom-up build"] },
-    { "objections": [] }
-  ]
-}

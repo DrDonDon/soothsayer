@@ -111,6 +111,11 @@ class IndependenceGate(unittest.TestCase):
         c = good_record(source_url="https://c.example", origin_trace="https://press")
         self.assertFalse(independence_gate([a, b, c]))
 
+    def test_single_record_does_not_fail(self):
+        # Regression P2: one source is not laundered corroboration; a lone record
+        # must not produce a scary FAIL on the documented single-record example.
+        self.assertTrue(independence_gate([good_record()]))
+
 
 class TierFloorGate(unittest.TestCase):
     def setUp(self):

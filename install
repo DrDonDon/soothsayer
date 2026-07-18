@@ -1,0 +1,34 @@
+#!/usr/bin/env bash
+# Install the Soothsayer skills into Claude Code.
+#
+# Symlinks each skill into ~/.claude/skills/ so you can invoke /sooth-define,
+# /sooth-scan, ... in Claude Code. Records the repo path so the skills can find
+# the checking engine. No API key: the skills run on your Claude subscription.
+set -euo pipefail
+HERE="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+
+SKILLS_DIR="${CLAUDE_SKILLS_DIR:-$HOME/.claude/skills}"
+mkdir -p "$SKILLS_DIR"
+
+echo "Installing Soothsayer skills into $SKILLS_DIR"
+count=0
+for dir in "$HERE"/skills/sooth-*/; do
+  [ -d "$dir" ] || continue
+  name="$(basename "$dir")"
+  target="$SKILLS_DIR/$name"
+  rm -rf "$target"
+  ln -s "$dir" "$target"
+  echo "  + /$name"
+  count=$((count + 1))
+done
+
+# Record where the checking engine lives, so skills can call it from anywhere.
+mkdir -p "$HOME/.soothsayer"
+printf '%s\n' "$HERE" > "$HOME/.soothsayer/root"
+
+echo
+echo "Installed $count skills. Restart Claude Code, then start a strategy problem with:"
+echo "    /sooth-define"
+echo
+echo "The checking engine lives at $HERE (recorded in ~/.soothsayer/root)."
+echo "To remove the skills later, run ./uninstall."

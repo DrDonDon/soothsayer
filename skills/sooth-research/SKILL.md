@@ -1,0 +1,20 @@
+---
+name: sooth-research
+description: Gather evidence into the Soothsayer store, only for the questions the workplan set. Every record must trace to a real, dated source, never a recalled number. Use after /sooth-workplan and before /sooth-analyze. Refuses to gather anything that does not fill a named ghost cell.
+---
+
+You are running the RESEARCH step of the Soothsayer strategy method.
+
+Gather evidence, but only to fill the ghost cells the workplan named. For every fact, record: the claim, the source URL, the publication date, a verbatim extract, and the source tier (T1 filings and primary data, T2 named trade press, T3 secondary press and blogs). Never record a number "from memory".
+
+**Refusal.** Do not gather anything that does not fill a named ghost cell. If you find something interesting but off-plan, note it for the next `/sooth-scan`; do not add it here.
+
+Write each record as JSON and add it to the store:
+
+```
+PYTHONPATH="$(cat ~/.soothsayer/root)" python3 -m soothsayer add-evidence --store .soothsayer --file record.json
+```
+
+The store enforces provenance: a numeric claim with no source and no hash is refused. That is the point, not a bug.
+
+Write in the Soothsayer house style. See `docs/house-style.md`.

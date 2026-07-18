@@ -40,39 +40,50 @@ At each step, Soothsayer holds the standard:
 ## How you use it
 
 You work the problem the way a good team would, and Soothsayer holds the line at
-each step. Each step is a skill you call by name in Claude Code:
+each step. Each step is a skill you call by name in Claude Code. The names are
+prefixed `sooth-` so they never clash with your other skills.
 
-1. `/define` sets the real question: who decides, and by when. It will not start
-   analysing until that is clear.
-2. `/scan` explores wide and maps what you know, what is contested, and what nobody
-   knows. It will not jump to an answer.
-3. `/tree` breaks the problem into a clean tree with no overlaps.
-4. `/prune` cuts to the fifth of it that matters, and says why it dropped the rest.
-5. `/workplan` lays out the charts you will fill, and for each the finding that
-   would kill the idea, before you look. No moving the goalposts afterwards.
-6. `/research` gathers evidence, but only for the questions you set.
-7. `/analyze` fills in the analysis. The checks fire here.
-8. `/synthesize` turns findings into a recommendation. Every claim has to trace
-   back to evidence.
-9. `/communicate` writes the pack and the hostile questions. It will not soften the
-   answer to make the story cleaner.
+1. `/sooth-define` sets the real question: who decides, and by when. It will not
+   start analysing until that is clear.
+2. `/sooth-scan` explores wide and maps what you know, what is contested, and what
+   nobody knows. It will not jump to an answer.
+3. `/sooth-tree` breaks the problem into a clean tree with no overlaps.
+4. `/sooth-prune` cuts to the fifth of it that matters, and says why it dropped the
+   rest.
+5. `/sooth-workplan` lays out the charts you will fill, and for each the finding
+   that would kill the idea, before you look. No moving the goalposts afterwards.
+6. `/sooth-research` gathers evidence, but only for the questions you set.
+7. `/sooth-analyze` fills in the analysis. The checks fire here.
+8. `/sooth-synthesize` turns findings into a recommendation. Every claim has to
+   trace back to evidence.
+9. `/sooth-communicate` writes the pack and the hostile questions. It will not
+   soften the answer to make the story cleaner.
 
-Two reviewers pressure-test the work before you present it. `/inhouse` asks "is
-this actually true about us?" and marks down polish and generic claims.
-`/partner-review` asks "will this survive the room?".
+Two reviewers pressure-test the work before you present it. `/sooth-inhouse` asks
+"is this actually true about us?" and marks down polish and generic claims.
+`/sooth-partner-review` asks "will this survive the room?".
 
 ## Getting started
 
-Soothsayer runs as Claude Code skills: you invoke them by name and it uses your
-Claude subscription, with no API key.
-
-This is an early release. The checking engine is built and tested; the skills that
-drive it are being packaged as Claude Code commands. To see the checks in action
-today, with no key and no setup:
+Install the skills into Claude Code. There is no API key: they run on your Claude
+subscription.
 
 ```
 git clone https://github.com/DrDonDon/soothsayer.git
 cd soothsayer
+./install
+```
+
+`./install` puts the `sooth-*` skills into `~/.claude/skills/`. Restart Claude
+Code, then start a strategy problem with `/sooth-define`. To remove them later,
+run `./uninstall`.
+
+You need Python 3.10+ for the checking engine (the steps that verify numbers and
+sources). It is standard on macOS and Linux.
+
+To see the checks on their own, without Claude Code:
+
+```
 python3 -m soothsayer demo
 ```
 

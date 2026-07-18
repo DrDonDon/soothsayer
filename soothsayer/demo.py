@@ -1,8 +1,8 @@
 """Self-contained demonstration: `soothsayer demo`.
 
 Builds a small set of good and deliberately-bad evidence records, shows each
-gate catching its bad case, then runs the review loop three ways (converged,
-escalate, under-reviewed). No network, no model, no store required.
+gate catching its bad case, then shows the skill refusals as gates. No network,
+no model, no store required.
 """
 
 from __future__ import annotations
@@ -18,9 +18,7 @@ from .gates import (
     t0_gate,
     tier_floor_gate,
 )
-from .loop import run_review_loop
 from .models import Assertion, EvidenceRecord, Tier
-from .modelclient import MockModel, Review
 
 
 def _rec(**kw) -> EvidenceRecord:
@@ -28,7 +26,9 @@ def _rec(**kw) -> EvidenceRecord:
 
 
 def run_demo() -> int:
-    print("SOOTHSAYER v0.1 — gate engine demonstration\n" + "=" * 44)
+    from . import __version__
+
+    print(f"SOOTHSAYER v{__version__} — the checking engine\n" + "=" * 44)
 
     src = "The regulator reported market penetration of 12% in 2025."
     h = content_hash(src)
@@ -109,18 +109,7 @@ def run_demo() -> int:
     print("   question on T3:", _fmt(tier_floor_gate(q_on_t3, by_id)))
     print("   recommendation on T1:", _fmt(tier_floor_gate(rec_on_t1, by_id)))
 
-    print("\n7. Review loop (single model + disagreement-floor)")
-    ev = [good]
-    asrt = Assertion("Entry is attractive", evidence_ids=[good.id])
-    conv = run_review_loop(asrt, ev, MockModel([Review(["sizing looks optimistic"]), Review([])]), floor=1, max_rounds=3)
-    print(f"   raised-then-resolved -> {conv.status.upper()} "
-          f"({conv.objections_seen} objections, {conv.rounds} rounds)")
-    esc = run_review_loop(asrt, ev, MockModel([Review(["a"]), Review(["b"])]), floor=1, max_rounds=2)
-    print(f"   never resolves      -> {esc.status.upper()}")
-    under = run_review_loop(asrt, ev, MockModel([]), floor=1, max_rounds=2)
-    print(f"   agrees too easily   -> {under.status.upper()} (false-convergence guard)")
-
-    print("\n8. Skill refusals as gates (deterministic, no model)")
+    print("\n7. Skill refusals as gates (deterministic, no model)")
     from .artifacts import GhostCell, GhostPack, IssueTree, Synthesis, SynthClaim, TreeNode
     from .skillgates import ghost_pack_gate, traceability_gate, tree_partition_gate
 

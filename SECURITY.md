@@ -16,18 +16,19 @@ That is a real attack surface, and the design takes it seriously.
   independence tracing collapses laundered corroboration; and `ingest.ground_extract`
   refuses to create a record for a figure that is not literally present in the
   source (extraction cannot invent a number).
-- **Model correlation.** A reviewer on the same model as the author shares blind
-  spots. `modelclient.ClientPair` refuses an author == reviewer configuration
-  unless explicitly overridden; the review loop's disagreement-floor rejects
-  suspiciously fast agreement.
+- **Model correlation.** A reviewer that shares the author's blind spots
+  rubber-stamps their mistakes. The `/sooth-inhouse` and `/sooth-partner-review`
+  skills review from a different angle than the analysis was written, and reject
+  agreement that comes too easily. Running the review in a separate Claude Code
+  session strengthens the independence.
 
 ## Keys and confidentiality
 
-- API keys are read from the environment (`ANTHROPIC_API_KEY` by default) and are
-  never stored in the repository. `.soothsayer/` is gitignored.
-- `config.redact_before_send` is on by default; redact client identifiers before
-  any content leaves the machine. For fully confidential work, run the reviewer
-  against a self-hosted model.
+Soothsayer runs on your Claude Code subscription and holds no API keys of its own.
+The `soothsayer` checking engine runs locally and makes no model calls. Evidence
+you fetch from the web goes only where Claude Code already sends it. For sensitive
+work, redact client identifiers before you paste them in, the same as you would
+with any tool.
 
 ## Reporting a vulnerability
 

@@ -7,4 +7,4 @@ T0 (model-memory) ban. Those gates prove the work is not sloppy or laundered.
 Nothing here claims the conclusion is true — validation is the gates, not a score.
 """
 
-__version__ = "0.1.0"
+__version__ = "0.1.1"

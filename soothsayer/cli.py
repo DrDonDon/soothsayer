@@ -1,10 +1,13 @@
-"""soothsayer CLI.
+"""soothsayer CLI — the checking engine the Soothsayer skills call.
 
     soothsayer version
-    soothsayer init [path]                 initialise a git-backed store
+    soothsayer init [path]                     initialise a git-backed store
     soothsayer add-evidence --store P --file rec.json
     soothsayer gate --store P [--frozen map.json] [--horizon YYYY-MM-DD] [--max-age N]
-    soothsayer demo                        self-contained end-to-end demonstration
+    soothsayer check-tree tree.json            /sooth-tree: partition + sum
+    soothsayer check-workplan workplan.json    /sooth-workplan: kill conditions + tolerances
+    soothsayer check-synthesis synth.json --store P   /sooth-synthesize: traceability
+    soothsayer demo                            self-contained demonstration
 """
 
 from __future__ import annotations
@@ -14,9 +17,10 @@ import json
 import sys
 
 from . import __version__
-from .config import Config
-from .gates import FrozenFetcher, gate_records, citation_gate
-from .models import Assertion, EvidenceRecord
+from .artifacts import GhostPack, IssueTree, Synthesis
+from .gates import FrozenFetcher, gate_records
+from .models import EvidenceRecord
+from .skillgates import ghost_pack_gate, traceability_gate, tree_partition_gate
 from .store import Store
 
 
@@ -74,20 +78,20 @@ def cmd_demo(_args) -> int:
     return run_demo()
 
 
-def cmd_check(args) -> int:
-    # Soothsayer runs as Claude Code skills; the model is your Claude subscription,
-    # so no API key is needed. This only sanity-checks the config.
-    cfg = Config.load(args.config)
-    print(f"author model:   {cfg.author_model}")
-    print(f"reviewer model: {cfg.reviewer_model}")
-    problems = cfg.validate()
-    if problems:
-        print("\nissues:")
-        for p in problems:
-            print(f"  - {p}")
-        return 1
-    print("\nconfig OK.")
-    return 0
+def cmd_check_tree(args) -> int:
+    tree = IssueTree.from_dict(json.loads(open(args.file, encoding="utf-8").read()))
+    return 1 if _print_results([tree_partition_gate(tree)]) else 0
+
+
+def cmd_check_workplan(args) -> int:
+    pack = GhostPack.from_dict(json.loads(open(args.file, encoding="utf-8").read()))
+    return 1 if _print_results([ghost_pack_gate(pack)]) else 0
+
+
+def cmd_check_synthesis(args) -> int:
+    synth = Synthesis.from_dict(json.loads(open(args.file, encoding="utf-8").read()))
+    known = set(Store(args.store).evidence_by_id().keys())
+    return 1 if _print_results([traceability_gate(synth, known)]) else 0
 
 
 def build_parser() -> argparse.ArgumentParser:
@@ -114,9 +118,18 @@ def build_parser() -> argparse.ArgumentParser:
 
     sub.add_parser("demo").set_defaults(func=cmd_demo)
 
-    pc = sub.add_parser("check")
-    pc.add_argument("--config", default=".soothsayer/config.json")
-    pc.set_defaults(func=cmd_check)
+    pt = sub.add_parser("check-tree")
+    pt.add_argument("file")
+    pt.set_defaults(func=cmd_check_tree)
+
+    pw = sub.add_parser("check-workplan")
+    pw.add_argument("file")
+    pw.set_defaults(func=cmd_check_workplan)
+
+    ps = sub.add_parser("check-synthesis")
+    ps.add_argument("file")
+    ps.add_argument("--store", required=True)
+    ps.set_defaults(func=cmd_check_synthesis)
     return p
 
 

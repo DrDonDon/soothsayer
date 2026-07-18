@@ -1,5 +1,25 @@
 # Changelog
 
+## 0.1.1 — a real Claude Code harness
+
+Feedback: the audience is strategy consultants with a Claude Code subscription,
+not developers. v0.1.0 read like a dev tool and demanded an API key.
+
+- **The skills are now real, invocable Claude Code commands.** Eleven skills under
+  `skills/sooth-*` (`/sooth-define` … `/sooth-communicate`, `/sooth-inhouse`,
+  `/sooth-partner-review`), installed by `./install` into `~/.claude/skills/`.
+  They run on your Claude subscription and call the checking engine for the
+  deterministic gates.
+- **No API key.** Removed the standalone model-client, config, and `check`
+  machinery (`config.py`, `modelclient.py`, `loop.py`) that assumed a separate
+  app calling the API. The review discipline now lives in the reviewer skills.
+- **CLI gains skill-gate checks:** `check-tree`, `check-workplan`,
+  `check-synthesis`, so the gate-bearing skills can call the engine.
+- **README rewritten** for strategy consultants: plain language, the skills and
+  how to use them, no jargon up top. Follows the house style.
+- **Fix (P2):** a single evidence record no longer produces a scary `independence`
+  FAIL; independence applies once you have two or more sources.
+
 ## 0.1.0 — first public release
 
 The walking skeleton, hardened for a public release.

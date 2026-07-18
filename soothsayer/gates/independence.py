@@ -14,6 +14,16 @@ from ..models import EvidenceRecord, GateResult
 
 
 def independence_gate(records: list, required: int = 2) -> GateResult:
+    # With fewer than `required` records there is no corroboration claim to
+    # falsify yet, so the gate passes with a note rather than failing loudly.
+    # Laundering (many outlets, one origin) only becomes checkable once you have
+    # enough sources to claim corroboration.
+    if len(records) < required:
+        return GateResult(
+            "independence",
+            True,
+            [f"only {len(records)} source(s); independence applies once you have {required}+"],
+        )
     origins = set()
     for r in records:
         origins.add(r.origin_trace or r.source_url)
