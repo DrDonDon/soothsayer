@@ -6,7 +6,7 @@ contracts; v0.2 splits each into an individually invocable skill file that calls
 the gate engine (`soothsayer.gates`) at the points marked below.
 
 House style for all output: The Economist (short words, active voice, no jargon,
-British spelling). See `../../.gstack/projects/Coding/steerco-house-style.md`.
+British spelling). See [`../docs/house-style.md`](../docs/house-style.md).
 
 | Step | Skill | Does | **Refuses** | Gate tie-in |
 |---|---|---|---|---|
