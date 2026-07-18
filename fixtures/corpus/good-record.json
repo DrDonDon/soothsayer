@@ -1,0 +1,13 @@
+{
+  "claim": "Penetration was 12% in 2025",
+  "source_url": "https://regulator.example/report-2025",
+  "verbatim_extract": "market penetration of 12% in 2025",
+  "source_tier": "T1",
+  "fetch_date": "2026-07-18",
+  "fetch_hash": "b0c467c4fd50e1b2",
+  "publication_date": "2025-11-01",
+  "value": 12.0,
+  "ghost_cell_id": null,
+  "origin_trace": null,
+  "id": "de44ff3c05516066"
+}

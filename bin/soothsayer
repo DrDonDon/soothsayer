@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+# Soothsayer launcher (gstack-style): run the CLI straight from the repo.
+set -euo pipefail
+HERE="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
+export PYTHONPATH="$HERE:${PYTHONPATH:-}"
+exec python3 -m soothsayer.cli "$@"

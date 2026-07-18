@@ -1,0 +1,27 @@
+#!/usr/bin/env bash
+# Soothsayer setup — gstack-style. Clone the repo, run ./setup, add bin to PATH.
+# v0.1 has no third-party dependencies, so setup only checks Python and the tests.
+set -euo pipefail
+HERE="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+
+echo "Soothsayer setup"
+if ! command -v python3 >/dev/null 2>&1; then
+  echo "ERROR: python3 is required (>= 3.10)." >&2
+  exit 1
+fi
+python3 --version
+
+echo "Running the gate-engine test suite..."
+if python3 -m unittest discover -s "$HERE/tests" -t "$HERE" >/dev/null 2>&1; then
+  echo "  tests: OK"
+else
+  echo "  tests: FAILED — see: python3 -m unittest discover -s tests -t ." >&2
+  exit 1
+fi
+
+chmod +x "$HERE/bin/soothsayer"
+echo
+echo "Done. Add Soothsayer to your PATH:"
+echo "    export PATH=\"$HERE/bin:\$PATH\""
+echo "Then try:"
+echo "    soothsayer demo"
