@@ -16,6 +16,8 @@ Produce two lists:
 - **Keep**: the branches you will work, ranked, with a one-line reason each.
 - **Kill**: every branch you drop, each with a reason. The kill list is not optional. Dropping work silently is how scope creep hides.
 
+Present the keep-or-kill call on each branch as **clickable options** so the user can confirm or overturn it with a click, not a paragraph. See `docs/asking.md`.
+
 **Refusal.** Do not add new branches. If the tree is missing something, say so and send it back to `/sooth-tree`; do not quietly invent a branch here.
 
 Write in the Soothsayer house style. See `docs/house-style.md`.

@@ -19,6 +19,8 @@ For each hypothesis, note what would have to be true for it to hold, and the sin
 - No straw men. Each rival must be the strongest version a serious person would argue, not a weak foil for your preferred answer.
 - Do not collapse to variations on one theme. Three flavours of the same hypothesis is one hypothesis.
 
+Offer the competing hypotheses as **clickable options** (multi-select) so the user picks which to carry into `/sooth-workplan`, and can add their own via "Other". See `docs/asking.md`.
+
 Hold the hypotheses live and equal going into `/sooth-workplan`. Holding several is the point: the analysis then has to discriminate between them, which is how you avoid finding only what you expected to find. If exploring surfaces a framing the problem definition missed, send it back to `/sooth-scan`.
 
 Write in the Soothsayer house style. See `docs/house-style.md`.

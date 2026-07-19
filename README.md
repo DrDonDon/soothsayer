@@ -48,7 +48,9 @@ a pack the room chooses from. A perspective ends in a briefing paper.
 
 You work the problem the way a good team would, and Soothsayer holds the line at
 each step. Each step is a skill you call by name in Claude Code. The names are
-prefixed `sooth-` so they never clash with your other skills.
+prefixed `sooth-` so they never clash with your other skills. Where it can, it
+asks its clarifying questions as clickable options, so you pick a tile rather than
+typing.
 
 The method is a **double diamond**. It opens the problem wide before defining it,
 then opens the answer wide before converging. Divergence then convergence, twice,

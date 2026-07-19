@@ -1,5 +1,20 @@
 # Changelog
 
+## 0.1.5 — clickable options, not just free text
+
+Feedback: ask the questions as clickable tiles, like gstack, not walls of open
+text.
+
+- The skills now ask their clarifying questions and choices with the
+  AskUserQuestion tool (clickable options), the same experience as gstack.
+- `/sooth-define` uses tiles for the mode (decision or perspective) and for
+  choice-type questions (commitment level, timeframe, strongest counter-argument);
+  plain text stays for open answers (a name, a one-sentence thesis).
+- `/sooth-scan` (pick framings), `/sooth-prune` (keep or kill each branch), and
+  `/sooth-explore` (pick hypotheses) offer their choices as tiles too, multi-select
+  where you can pick several. "Other" is always available.
+- Convention documented in `docs/asking.md`.
+
 ## 0.1.4 — more divergence (the double diamond)
 
 Feedback: the skills were too convergent and hypothesis-driven. The pipeline was

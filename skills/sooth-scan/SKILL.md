@@ -15,6 +15,8 @@ Then diverge on **framings**. This is the first divergence of the double diamond
 
 **Refusals.** Do not recommend. Do not narrow to a preferred answer or a single framing. An empty "unknown" list, or only one framing, is a sign you narrowed too early; look harder.
 
-Stop after the map and the reframe question. The next step is `/sooth-tree`.
+When you present the framings, offer them as **clickable options** (multi-select) so the user picks which to carry into `/sooth-tree`, and can add their own via "Other". See `docs/asking.md`.
+
+Stop after the map and the framings. The next step is `/sooth-tree`.
 
 Write in the Soothsayer house style: plain words, short sentences, British spelling. See `docs/house-style.md`.
