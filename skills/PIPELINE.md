@@ -1,8 +1,11 @@
 # Soothsayer pipeline
 
 The skills live one per directory under `skills/sooth-*`, installed into Claude
-Code by `./install`. The backbone is the McKinsey seven-step method. Each skill's
-**refusal** matters more than its instruction: the constraint is the feature.
+Code by `./install`. The backbone is the McKinsey seven-step method, run as a
+**double diamond**: `/sooth-scan` opens the problem wide before `/sooth-tree` and
+`/sooth-prune` converge; `/sooth-explore` opens the answer wide before
+`/sooth-analyze` and `/sooth-synthesize` converge. Each skill's **refusal**
+matters more than its instruction: the constraint is the feature.
 
 House style for all output: The Economist (short words, active voice, British
 spelling, no em dashes). See `../docs/house-style.md`.
@@ -13,7 +16,8 @@ spelling, no em dashes). See `../docs/house-style.md`.
 | 2 Scan | `/sooth-scan` | ignorance map; hunts the reframe | to recommend or narrow | — |
 | 2 Tree | `/sooth-tree` | issue/hypothesis tree | to prioritise or opine | `soothsayer check-tree` |
 | 3 Prune | `/sooth-prune` | 80/20; kill list with reasons | to add branches | — |
-| 4 Workplan | `/sooth-workplan` | ghost pack (pre-registration) | to do the analysis | `soothsayer check-workplan` |
+| — Explore | `/sooth-explore` | competing hypotheses per issue (second divergence) | to pick a favourite | — |
+| 4 Workplan | `/sooth-workplan` | ghost pack that discriminates between hypotheses | to do the analysis | `soothsayer check-workplan` |
 | 5 Research | `/sooth-research` | gather into the evidence store | to gather off-plan | `soothsayer add-evidence` (T0 ban) |
 | 5 Analyse | `/sooth-analyze` | fill the charts | to synthesise or recommend | `soothsayer gate` |
 | 6 Synthesise | `/sooth-synthesize` | findings to recommendation (pyramid) | any fact not in the store | `soothsayer check-synthesis` |

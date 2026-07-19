@@ -1,5 +1,27 @@
 # Changelog
 
+## 0.1.4 — more divergence (the double diamond)
+
+Feedback: the skills were too convergent and hypothesis-driven. The pipeline was
+a single funnel that tended to confirm a first hunch.
+
+- **New `/sooth-explore`** (the second divergence): after the problem is defined,
+  it opens the answer space wide. For each key issue it generates several
+  genuinely different competing hypotheses, including the uncomfortable one, and
+  refuses to pick a favourite or use straw men.
+- **`/sooth-scan`** now opens wider too: at least three different framings of the
+  problem, not one.
+- **`/sooth-tree`** frames branches as open questions, not answers you expect.
+- **`/sooth-workplan`** designs charts to discriminate between the competing
+  hypotheses rather than confirm one; kill condition per hypothesis.
+- **`/sooth-research`** keeps a small budget for open, disconfirming inquiry and
+  routes genuine surprises back instead of discarding them.
+- **`/sooth-analyze`** works out which hypothesis each chart favours and hunts the
+  alternative explanation. **`/sooth-synthesize`** converges by saying what the
+  answer beat.
+- The anti-advocacy rigor is unchanged; it now holds several live hypotheses
+  instead of one, which is more divergent and more rigorous. No engine change.
+
 ## 0.1.3 — /sooth-define interrogates
 
 Feedback: define was good but too easily satisfied. It now asks hard clarifying

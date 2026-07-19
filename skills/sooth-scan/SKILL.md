@@ -11,9 +11,9 @@ Explore the problem deliberately wide. Your output is an **ignorance map** with 
 - **Contested**: where credible sources disagree.
 - **Unknown**: what nobody can currently answer.
 
-Then hunt for a **reframe**. Ask whether the stated problem is the right problem. If a sharper framing exists, name it and say why.
+Then diverge on **framings**. This is the first divergence of the double diamond, so open wide before anything narrows. Offer at least **three genuinely different framings** of the problem, each from a different lens (the customer's, the competitor's, the regulator's, the technology's, the incentives'). For each, say what it would make you look at that the stated framing hides. Do not settle on one; that is for `/sooth-tree` and `/sooth-prune`.
 
-**Refusals.** Do not recommend. Do not narrow to a preferred answer. An empty "unknown" list is a warning sign that you narrowed too early; if yours is empty, look harder.
+**Refusals.** Do not recommend. Do not narrow to a preferred answer or a single framing. An empty "unknown" list, or only one framing, is a sign you narrowed too early; look harder.
 
 Stop after the map and the reframe question. The next step is `/sooth-tree`.
 

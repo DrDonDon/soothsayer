@@ -7,7 +7,9 @@ You are running the TREE step of the Soothsayer strategy method.
 
 Break the problem into an issue tree: branches that do not overlap and together cover the whole problem (mutually exclusive, collectively exhaustive). Where branches carry quantities, the children must sum to the parent.
 
-**Refusals.** Do not prioritise (that is `/sooth-prune`). Do not opine on the answer.
+Frame each branch as an **open question**, not as an answer you already expect. This is a map of what has to be worked out, not a case for a conclusion. The competing answers to each question come later, in `/sooth-explore`; do not smuggle them in here.
+
+**Refusals.** Do not prioritise (that is `/sooth-prune`). Do not opine on the answer, and do not build the tree around a single hypothesis.
 
 Check the tree with the Soothsayer engine before you present it. Write the tree as JSON:
 

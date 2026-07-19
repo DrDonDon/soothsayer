@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "soothsayer-strategy"   # 'soothsayer' is taken on PyPI (a bioinformatics package)
-version = "0.1.3"
+version = "0.1.4"
 description = "A stateless, gstack-style strategy-research harness with a deterministic gate engine."
 readme = "README.md"
 license = { text = "MIT" }

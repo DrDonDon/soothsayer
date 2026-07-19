@@ -1,13 +1,15 @@
 ---
 name: sooth-research
-description: Gather evidence into the Soothsayer store, only for the questions the workplan set. Every record must trace to a real, dated source, never a recalled number. Use after /sooth-workplan and before /sooth-analyze. Refuses to gather anything that does not fill a named ghost cell.
+description: Gather evidence into the Soothsayer store. Mostly fills the workplan's ghost cells, with a small budget for open, disconfirming inquiry. Every record must trace to a real, dated source, never a recalled number. Use after /sooth-workplan and before /sooth-analyze. Refuses to let off-plan gathering take over, but routes genuine surprises back rather than discarding them.
 ---
 
 You are running the RESEARCH step of the Soothsayer strategy method.
 
-Gather evidence, but only to fill the ghost cells the workplan named. For every fact, record: the claim, the source URL, the publication date, a verbatim extract, and the source tier (T1 filings and primary data, T2 named trade press, T3 secondary press and blogs). Never record a number "from memory".
+Most of your gathering fills the ghost cells the workplan named. But keep a **small budget for open, disconfirming inquiry**: actively look for evidence that would kill one of your live hypotheses, or surface a framing the earlier steps missed. This is within reason, not a licence to boil the ocean; the bulk of the work stays on-plan.
 
-**Refusal.** Do not gather anything that does not fill a named ghost cell. If you find something interesting but off-plan, note it for the next `/sooth-scan`; do not add it here.
+For every fact, record: the claim, the source URL, the publication date, a verbatim extract, and the source tier (T1 filings and primary data, T2 named trade press, T3 secondary press and blogs). Never record a number "from memory".
+
+**Refusal.** Do not let off-plan gathering take over; the plan exists for a reason. But do not bury a genuine surprise either. If open inquiry turns up a finding that kills a hypothesis or reframes the problem, send it back to `/sooth-explore` or `/sooth-scan` rather than discarding it.
 
 Write each record as JSON and add it to the store:
 

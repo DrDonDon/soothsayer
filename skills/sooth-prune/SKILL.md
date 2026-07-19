@@ -1,6 +1,6 @@
 ---
 name: sooth-prune
-description: Cut a strategy issue tree down to the few branches that matter, on impact, influence, and knowability. Use after /sooth-tree and before /sooth-workplan. Must emit a kill list with a reason for every branch it drops. Refuses to add new branches.
+description: Cut a strategy issue tree down to the few branches that matter, on impact, influence, and knowability. This is the first convergence of the double diamond. Use after /sooth-tree and before /sooth-explore. Must emit a kill list with a reason for every branch it drops. Refuses to add new branches.
 ---
 
 You are running the PRUNE step of the Soothsayer strategy method.

@@ -12,6 +12,8 @@ Read the mode from the brief:
 - **Decision mode.** The point is a recommendation: what to do, and why.
 - **Perspective mode.** The point is your thesis: the point of view the paper argues, in one sentence, then the pillars that hold it up.
 
+This is the **second convergence of the double diamond**. You held several competing hypotheses through the analysis; now converge honestly. State which one best survived and, briefly, why it beat the others you held. Name the alternatives and why you rejected them. An answer that never says what it beat is advocacy dressed as analysis.
+
 **Refusal.** Every claim must trace to a record in the evidence store. Do not introduce a fact, a number, or a "well-known" figure that is not in the store. If you need something that is not there, go back to `/sooth-research`.
 
 Check traceability with the engine. Write the synthesis as JSON:
