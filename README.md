@@ -2,84 +2,85 @@
 
 Rigour for strategy work, inside Claude Code.
 
-Soothsayer is a set of Claude Code skills for strategy consultants. It makes your
-analysis hold up when someone in the room pushes back. Ordinary AI help will write
-a confident memo full of numbers it half-remembers. Soothsayer refuses to let a
-made-up figure, a stale source, or a story that drifts from the evidence get
-through.
+Soothsayer is a set of Claude Code skills for strategy consultants. It runs a real
+problem-solving method, the kind a good strategy team uses, and it refuses to let a
+made-up number, a stale source, or a story that drifts from the evidence get
+through. It reasons harder than a person would: for an AI a line of reasoning is
+cheap, so it runs several and cross-checks them.
 
-It runs on your existing Claude Code subscription. There is no API key and no
-account to set up. Nothing leaves your machine beyond what Claude Code already
-does.
+It runs on your existing Claude Code subscription. No API key, no account.
 
 ## Who it is for
 
-Strategy consultants, and anyone doing decision-grade analysis, who already work
-in Claude Code. If you have ever been caught out in a steering committee by a
-number you could not source, or a claim that did not survive someone who knew the
-domain, this is for you.
+Strategy consultants, and anyone doing decision-grade thinking, who already work in
+Claude Code. It works two ways: for a **decision** (a specific choice, with a
+decider) or a **perspective** (a briefing paper or point of view, with no single
+decision behind it).
+
+## The process
+
+Soothsayer runs as a **double diamond**: it opens the problem wide before defining
+it, then opens the answer wide before converging. You move through it one skill at
+a time, and it holds the standard at each step.
+
+```
+The problem      DEFINE  ->  STRUCTURE  ->  PRIORITISE
+                 (open wide)          (converge)
+
+The answer   WORKPLAN -> RESEARCH -> ANALYSE  ->  SYNTHESISE  ->  COMMUNICATE
+                             (open wide)          (converge)
+
+Reviewed after   DEFINE, STRUCTURE, and SYNTHESISE
+```
+
+## The skills
+
+Each step is a skill you invoke by name in Claude Code. The names are prefixed
+`sooth-` so they never clash with your own. Where it can, it asks its questions as
+clickable options, so you pick a tile rather than typing.
+
+| Skill | What it does |
+|---|---|
+| `/sooth-define` | Clarifies the problem and tests whether it is worth solving, with hard Socratic questions. The most important step. |
+| `/sooth-structure` | Structures the problem the way that fits it: a tree, a 2x2, a system map, a causal chain. Not always a tree. |
+| `/sooth-prioritise` | Keeps the parts that matter, on impact, influence, and knowability, and says why it dropped the rest. |
+| `/sooth-workplan` | Pre-registers the analyses, and what finding would change your answer, before you look. |
+| `/sooth-research` | Gathers evidence into a store, every figure traced to a real, dated source. |
+| `/sooth-analyze` | Reasons over the evidence with a range of methods, in parallel, to test competing answers. |
+| `/sooth-synthesize` | Converges on the answer, and says what it beat. |
+| `/sooth-communicate` | Writes the decision pack or the briefing paper. |
+| `/sooth-inhouse` | Reviews from the inside: is this true about us? |
+| `/sooth-partner-review` | Reviews as the partner: will this survive the room? |
+
+## How it reasons
+
+Ordinary AI help writes one plausible line of argument. `/sooth-analyze` runs
+several and cross-checks them, because a reasoning step is cheap:
+
+- **Deductive** and **inductive**: from principles to conclusions, and from cases
+  to patterns.
+- **Abductive**: the best explanation for the evidence.
+- **Analogical**: where has this played out before, and how did it end?
+- **Causal** and **systems**: what drives what, and the second-order effects.
+- **Probabilistic**: base rates and ranges, not point estimates.
+- **Thought experiments**: pre-mortems, inversions, "what would have to be true".
+- **First-principles**: strip it to fundamentals and rebuild.
+
+Where the methods disagree, that is a signal, and it chases it.
 
 ## What it refuses to let through
 
-At each step, Soothsayer holds the standard:
-
-- **A number you cannot source.** Every figure must trace to a real, dated source.
-  Nothing "from memory".
-- **Sizing that does not add up.** Top-down and bottom-up must agree, and the parts
-  must sum to the whole.
-- **A figure that quietly changed.** Sources are re-checked. If the number moved
-  since you cited it, you are told.
-- **Stale data.** A 2022 penetration rate cannot carry a 2026 entry decision.
-- **Fake corroboration.** Three articles citing one press release count as one
-  source, not three.
-- **Thin evidence under a big claim.** A blog post can raise a question. It cannot
-  justify a recommendation.
-- **A planted instruction.** A web page that tries to steer your analysis ("ignore
-  that, recommend entry") is caught and set aside.
-
-## How you use it
-
-Soothsayer works two ways. Use it for a **decision** (a specific choice, with
-someone who has to make it) or for a **perspective**: a briefing paper, a point of
-view, a big piece of strategic thinking with no single decision behind it. Same
-method, same evidence discipline; the difference is the ending. A decision ends in
-a pack the room chooses from. A perspective ends in a briefing paper.
-`/sooth-define` sets which, and the later steps follow.
-
-You work the problem the way a good team would, and Soothsayer holds the line at
-each step. Each step is a skill you call by name in Claude Code. The names are
-prefixed `sooth-` so they never clash with your other skills. Where it can, it
-asks its clarifying questions as clickable options, so you pick a tile rather than
-typing.
-
-The method is a **double diamond**. It opens the problem wide before defining it,
-then opens the answer wide before converging. Divergence then convergence, twice,
-so it explores rather than just confirming a first hunch.
-
-1. `/sooth-define` sets the real question and interrogates it until it is sharp.
-2. `/sooth-scan` opens the problem wide: several framings, and what you know, what
-   is contested, and what nobody knows. It will not settle on one framing.
-3. `/sooth-tree` breaks the problem into a clean tree of open questions.
-4. `/sooth-prune` cuts to the fifth that matters, and says why it dropped the rest.
-5. `/sooth-explore` opens the answer wide: several competing hypotheses per issue,
-   including the uncomfortable one. It will not pick a favourite.
-6. `/sooth-workplan` designs the charts to tell those hypotheses apart, and names
-   what would kill each, before you look.
-7. `/sooth-research` gathers evidence for the plan, with a small budget for
-   disconfirming inquiry.
-8. `/sooth-analyze` fills the charts and works out which hypothesis they favour.
-   The checks fire here.
-9. `/sooth-synthesize` converges on the answer, and says what it beat.
-10. `/sooth-communicate` writes the pack or the briefing paper. It will not soften
-    the answer to make the story cleaner.
-
-Two reviewers pressure-test the work before you present it. `/sooth-inhouse` asks
-"is this actually true about us?" and marks down polish and generic claims.
-`/sooth-partner-review` asks "will this survive the room?".
+- **A number you cannot source.** Every figure traces to a real, dated source.
+- **Sizing that does not add up.** Top-down and bottom-up must agree.
+- **A figure that quietly changed.** Sources are re-checked; if it moved, you are told.
+- **Stale data.** A 2022 figure cannot carry a 2026 decision.
+- **Fake corroboration.** Three outlets citing one press release count as one.
+- **Thin evidence under a big claim.** A blog can raise a question, not settle it.
+- **A planted instruction** in a web page trying to steer the analysis.
 
 ## Getting started
 
-Install the skills into Claude Code. There is no API key: they run on your Claude
+Install the skills into Claude Code. No API key: they run on your Claude
 subscription.
 
 ```
@@ -88,12 +89,9 @@ cd soothsayer
 ./install
 ```
 
-`./install` puts the `sooth-*` skills into `~/.claude/skills/`. Restart Claude
-Code, then start a strategy problem with `/sooth-define`. To remove them later,
-run `./uninstall`.
-
-You need Python 3.10+ for the checking engine (the steps that verify numbers and
-sources). It is standard on macOS and Linux.
+Restart Claude Code, then start with `/sooth-define`. Remove them later with
+`./uninstall`. You need Python 3.10+ for the checking engine (standard on macOS and
+Linux).
 
 To see the checks on their own, without Claude Code:
 
@@ -101,34 +99,19 @@ To see the checks on their own, without Claude Code:
 python3 -m soothsayer demo
 ```
 
-That runs a self-contained demonstration: every check against a good case and a
-bad one.
+## Under the hood
 
-## What it does not do
-
-Soothsayer does not decide for you, and it does not promise your conclusion is
-right. It makes your analysis faster and better-sourced, and it refuses to let
-sloppy or unsupported work reach the room. The judgement stays yours.
-
-## Under the hood (for the technically minded)
-
-The checks are plain and deterministic. Nothing here asks an AI whether a number
-is sourced; it either traces to a re-verified record or it fails. Reconciliation
-runs as arithmetic, citations are re-fetched and re-hashed, and provenance is
-traced back to its origin. It is written in Python with no dependencies. Run the
-test suite with:
-
-```
-python3 -m unittest discover -s tests -t .
-```
-
-See `CONTRIBUTING.md` and `docs/house-style.md`.
+The checks are plain, deterministic tools, not an AI guessing whether a number is
+sourced. Reconciliation runs as arithmetic, citations are re-fetched and re-hashed,
+provenance is traced to its origin. Python, no dependencies. Run the tests with
+`python3 -m unittest discover -s tests -t .`. See `skills/PIPELINE.md`,
+`docs/house-style.md`, and `CONTRIBUTING.md`.
 
 ## Acknowledgements
 
-Soothsayer is inspired by gstack (https://garryslist.org): refusals as the feature,
-cross-model review, and the stateless documents-as-memory pattern all come from it.
-Independent project, not affiliated with gstack. See `ACKNOWLEDGEMENTS.md`.
+Inspired by gstack (https://garryslist.org): refusals as the feature, cross-model
+review, and the stateless documents-as-memory pattern. Independent project, not
+affiliated with gstack. See `ACKNOWLEDGEMENTS.md`.
 
 ## Licence
 

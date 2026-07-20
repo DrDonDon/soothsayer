@@ -2,13 +2,19 @@
 # Install the Soothsayer skills into Claude Code.
 #
 # Symlinks each skill into ~/.claude/skills/ so you can invoke /sooth-define,
-# /sooth-scan, ... in Claude Code. Records the repo path so the skills can find
-# the checking engine. No API key: the skills run on your Claude subscription.
+# /sooth-structure, ... in Claude Code. Records the repo path so the skills can
+# find the checking engine. No API key: the skills run on your Claude subscription.
 set -euo pipefail
 HERE="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
 SKILLS_DIR="${CLAUDE_SKILLS_DIR:-$HOME/.claude/skills}"
 mkdir -p "$SKILLS_DIR"
+
+# Clean any previously-installed Soothsayer skills first, so renamed or removed
+# skills (a past sooth-tree, sooth-scan, ...) do not leave dangling links.
+for old in "$SKILLS_DIR"/sooth-*; do
+  { [ -e "$old" ] || [ -L "$old" ]; } && rm -rf "$old"
+done
 
 echo "Installing Soothsayer skills into $SKILLS_DIR"
 count=0

@@ -1,5 +1,31 @@
 # Changelog
 
+## 0.2.0 — a big uplift: sharper thinking, tighter method
+
+Four changes from feedback.
+
+**Better problem solving.** `/sooth-analyze` now reasons with a range of methods,
+deductive, inductive, abductive, analogical, causal, probabilistic, thought
+experiments, first-principles, and systems, run in parallel and cross-checked. It
+is deliberately more exhaustive than a human consultant, because a reasoning step
+is cheap. Where the methods disagree, that is a signal.
+
+**A tighter method (12 skills down to 10).** Folded `scan` into a much stronger
+`define` and `explore` into `analyse`, so the double-diamond divergence lives
+inside the steps rather than as separate ones. Renamed `tree` to
+`/sooth-structure` (not every problem is a tree: 2x2s, system maps, causal chains)
+and `prune` to `/sooth-prioritise` (independent of the structure).
+
+**Reviews at the right checkpoints.** `/sooth-inhouse` and `/sooth-partner-review`
+now run after Define (right problem?), Structure (sound shape?), and Synthesise
+(true answer?), not only at the end. Catching a wrong problem early is cheap.
+
+**A much stronger `/sooth-define`.** Now office-hours grade: Socratic questioning
+that prioritises the most impactful clarifications, and it tests not just whether
+the problem is clear but whether it is worth solving at all.
+
+**README rewritten** to show the process, the skills, and how it reasons.
+
 ## 0.1.5 — clickable options, not just free text
 
 Feedback: ask the questions as clickable tiles, like gstack, not walls of open

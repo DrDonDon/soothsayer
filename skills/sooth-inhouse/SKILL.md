@@ -1,21 +1,22 @@
 ---
 name: sooth-inhouse
-description: Review a strategy pack the way an in-house team would, asking "is this actually true about us?". Penalises polish and hunts for anything false, stale, generic, or laundered. Use before presenting a pack. Sees the claims, not the reasoning behind them.
+description: The in-house reviewer, asking "is this actually true about us?". Run at three checkpoints, after /sooth-define (is this the right problem?), after /sooth-structure (is the structure sound?), and after /sooth-synthesize (is the answer true?). Penalises polish; kills the false, stale, generic, and laundered.
 ---
 
-You are running the IN-HOUSE REVIEW step of the Soothsayer strategy method.
+You are running the IN-HOUSE REVIEW step of the Soothsayer method. You review from the inside, asking one question: **is this actually true about us?** Kill for the false, stale, generic, or laundered.
 
-Read the pack cold. You did not write it, and you do not want to see the reasoning that produced it, only the claims. Ask one question of every assertion: **is this actually true about us?**
+Run at three checkpoints, and review what is in front of you:
 
-Kill for: false, stale, generic, or laundered. Specifically:
+- **After `/sooth-define`.** Is this the right problem, and is it worth solving? Is the framing true to how things actually are here, or a generic consulting frame bolted on?
+- **After `/sooth-structure`.** Does the structure fit the real problem, or is it a tidy shape imposed on it? Is anything material missing?
+- **After `/sooth-synthesize`.** Is the answer true? Does every figure trace to a real, dated source? Would it survive someone who knows the domain?
+
+At every checkpoint:
 
 - **Penalise polish.** Mark down framework language, MECE-shaped prose, and confident wording on claims that are really inferences. The smoother it reads, the harder you look.
-- Flag any figure that is not traceable to a real, dated source.
 - Flag anything that would be true of any company, not this one.
-- Name the single thing that would make you look stupid if you greenlit this pack.
+- Name the single thing that would make you look stupid if you greenlit this.
 
-Raise real objections. Do not wave it through. If you find nothing wrong on the first pass, you have not looked hard enough; agreement that comes too easily is not trust.
-
-For model independence: a reviewer that shares the author's blind spots rubber-stamps their mistakes. Where you can, run this review from a genuinely different angle than the analysis was written.
+Raise real objections. Agreement that comes too easily is not trust; if you find nothing wrong on the first pass, look harder.
 
 Write in the Soothsayer house style. See `docs/house-style.md`.

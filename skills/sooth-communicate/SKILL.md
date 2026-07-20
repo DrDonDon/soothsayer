@@ -10,7 +10,7 @@ Turn the synthesis into what the audience sees. The shape depends on the mode, w
 ## Decision mode — the pack
 
 - **The storyline** (situation, complication, question, answer): four short paragraphs.
-- **The pack**: at most **five assertions and three questions**, ranked by how much each unblocks. If it does not fit, the analysis was not pruned hard enough; go back to `/sooth-prune`.
+- **The pack**: at most **five assertions and three questions**, ranked by how much each unblocks. If it does not fit, it was not prioritised hard enough; go back to `/sooth-prioritise`.
 - Each **assertion** carries: what you believe, your confidence, the evidence it rests on, what would kill it, and what dies if the room rejects it.
 - Each **question** is a forced choice: options, trade-offs, and a recommendation. Never open-ended.
 - A **hostile Q&A**: the six hardest questions the room will ask, and honest answers.

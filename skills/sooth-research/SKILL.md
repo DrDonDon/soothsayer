@@ -9,7 +9,7 @@ Most of your gathering fills the ghost cells the workplan named. But keep a **sm
 
 For every fact, record: the claim, the source URL, the publication date, a verbatim extract, and the source tier (T1 filings and primary data, T2 named trade press, T3 secondary press and blogs). Never record a number "from memory".
 
-**Refusal.** Do not let off-plan gathering take over; the plan exists for a reason. But do not bury a genuine surprise either. If open inquiry turns up a finding that kills a hypothesis or reframes the problem, send it back to `/sooth-explore` or `/sooth-scan` rather than discarding it.
+**Refusal.** Do not let off-plan gathering take over; the plan exists for a reason. But do not bury a genuine surprise either. If open inquiry turns up a finding that reframes the problem, send it back to `/sooth-define` or `/sooth-structure` rather than discarding it.
 
 Write each record as JSON and add it to the store:
 
