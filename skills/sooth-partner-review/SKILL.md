@@ -13,6 +13,8 @@ Run at three checkpoints:
 
 For a **perspective**, the room is the audience: kill for saying only what they already know, having no real point of view, or answering the wrong question for them.
 
+At the synthesise checkpoint, do not just poke holes. **Assume the whole thesis is wrong and argue the opposite as hard as you can.** Build the best case a hostile expert would make against it. If the pack cannot answer that case, it is not ready for the room, send it back.
+
 Judge on pattern and priors, not on how thorough the work looks.
 
 Write in the Soothsayer house style. See `docs/house-style.md`.

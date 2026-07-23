@@ -24,6 +24,11 @@ from .skillgates import ghost_pack_gate, traceability_gate, tree_partition_gate
 from .store import Store
 
 
+def _load_json(path: str):
+    with open(path, encoding="utf-8") as fh:
+        return json.load(fh)
+
+
 def _print_results(results: list) -> int:
     failed = 0
     for r in results:
@@ -50,7 +55,7 @@ def cmd_init(args) -> int:
 
 
 def cmd_add_evidence(args) -> int:
-    rec = EvidenceRecord.from_dict(json.loads(open(args.file, encoding="utf-8").read()))
+    rec = EvidenceRecord.from_dict(_load_json(args.file))
     path = Store(args.store).init().add_evidence(rec)
     print(f"added {rec.id} -> {path}")
     return 0
@@ -64,7 +69,7 @@ def cmd_gate(args) -> int:
         return 0
     fetcher = None
     if args.frozen:
-        mapping = json.loads(open(args.frozen, encoding="utf-8").read())
+        mapping = _load_json(args.frozen)
         fetcher = FrozenFetcher(mapping)
     results = gate_records(
         records, fetcher=fetcher, decision_horizon=args.horizon, max_age_days=args.max_age
@@ -79,17 +84,17 @@ def cmd_demo(_args) -> int:
 
 
 def cmd_check_tree(args) -> int:
-    tree = IssueTree.from_dict(json.loads(open(args.file, encoding="utf-8").read()))
+    tree = IssueTree.from_dict(_load_json(args.file))
     return 1 if _print_results([tree_partition_gate(tree)]) else 0
 
 
 def cmd_check_workplan(args) -> int:
-    pack = GhostPack.from_dict(json.loads(open(args.file, encoding="utf-8").read()))
+    pack = GhostPack.from_dict(_load_json(args.file))
     return 1 if _print_results([ghost_pack_gate(pack)]) else 0
 
 
 def cmd_check_synthesis(args) -> int:
-    synth = Synthesis.from_dict(json.loads(open(args.file, encoding="utf-8").read()))
+    synth = Synthesis.from_dict(_load_json(args.file))
     known = set(Store(args.store).evidence_by_id().keys())
     return 1 if _print_results([traceability_gate(synth, known)]) else 0
 

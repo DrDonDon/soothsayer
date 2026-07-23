@@ -15,6 +15,7 @@ House style: The Economist (`../docs/house-style.md`). Ask with clickable option
 | Step | Skill | Does | Refuses | Checked by |
 |---|---|---|---|---|
 | 1 Define | `/sooth-define` | Socratic clarify + is-it-worth-solving; framings | to proceed on a fuzzy or pointless problem | — |
+| — Client context | `/sooth-client-context` | the client's real wants, biases, politics; where to guard against advocacy | to flatter or tailor the answer | — |
 | 2 Structure | `/sooth-structure` | the structure that fits (tree, 2x2, map, causal, spectrum) | to prioritise or force a tree | `check-tree` (if a tree) |
 | 3 Prioritise | `/sooth-prioritise` | keep the parts that matter; kill list | to add parts | — |
 | 4 Workplan | `/sooth-workplan` | pre-register the analyses and kill conditions | to do the analysis | `check-workplan` |
@@ -25,10 +26,11 @@ House style: The Economist (`../docs/house-style.md`). Ask with clickable option
 
 ## Reasoning methods (in `/sooth-analyze`)
 
-Deductive, inductive, abductive, analogical, causal, probabilistic, thought
-experiments, first-principles, systems. Run several on each key question, in
-parallel, and cross-check them. Deliberately more exhaustive than a human, because
-a reasoning step is cheap.
+Deductive, inductive, abductive, analogical, causal, probabilistic, falsification
+(assume the opposite and try to disprove the thesis), thought experiments,
+first-principles, systems. Run several on each key question, in parallel, and
+cross-check them, then run a disproof pass on any favoured answer. Deliberately
+more exhaustive than a human, because a reasoning step is cheap.
 
 ## Reviews at three checkpoints
 
