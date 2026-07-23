@@ -1,6 +1,6 @@
 # Changelog
 
-## Unreleased (on dev)
+## 0.2.1 — client context, falsification, and easier install
 
 - **New skill `/sooth-client-context`**: understand the client's real wants,
   biases, motivations, and politics, and where the work must be guarded against
