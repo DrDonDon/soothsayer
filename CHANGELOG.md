@@ -1,5 +1,24 @@
 # Changelog
 
+## 0.2.1 — client context, falsification, and easier install
+
+- **New skill `/sooth-client-context`**: understand the client's real wants,
+  biases, motivations, and politics, and where the work must be guarded against
+  telling them what they want to hear. Run early.
+- **Falsification as a first-class method**: `/sooth-analyze` assumes the opposite
+  and runs a disproof pass on any favoured answer; `/sooth-partner-review` argues
+  the opposite as hard as it can before passing a pack.
+- **`/sooth-inhouse` is more skeptical**: disbelief is the default, trust nothing
+  unsourced, and treat confident language as a red flag.
+- **`/sooth-communicate` asks the form** (length, style, sections, format) before
+  writing.
+- **Tests**: added `tests/test_cli.py` covering every CLI command the skills call
+  (check-tree, check-workplan, check-synthesis, gate, add-evidence, version,
+  demo), and fixed a file-handle leak in the CLI that the new tests surfaced.
+- **Install instructions**: a friendly `INSTALL.md` (prerequisites, per-OS steps,
+  verify, update, uninstall, troubleshooting), and a clearer Getting Started in
+  the README that links to it. Asked for by a user trying to install.
+
 ## 0.2.0 — a big uplift: sharper thinking, tighter method
 
 Four changes from feedback.

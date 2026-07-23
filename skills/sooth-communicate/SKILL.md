@@ -7,6 +7,17 @@ You are running the COMMUNICATE step of the Soothsayer strategy method.
 
 Turn the synthesis into what the audience sees. The shape depends on the mode, which is recorded in the brief.
 
+## First, ask what form the document should take
+
+Before you write, ask the user how they want it, with clickable options where the answer is a choice (see `docs/asking.md`). Do not assume:
+
+- **Length.** One-pager, short (2 to 4 pages), or full. Offer as tiles.
+- **Style.** Bullets, flowing prose, or slide-style headlines with support. Offer as tiles.
+- **Sections.** Propose a section list for the mode below and let the user confirm, drop, or add. For a briefing paper, a sensible default is thesis, argument, implications, what would change the view, and hostile Q&A.
+- **Format and audience.** Who reads it, and any house template or format they must match.
+
+Use their answers to shape what follows. The mode below sets the substance; their answers set the form.
+
 ## Decision mode — the pack
 
 - **The storyline** (situation, complication, question, answer): four short paragraphs.
