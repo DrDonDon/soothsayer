@@ -82,8 +82,14 @@ Where the methods disagree, that is a signal, and it chases it.
 
 ## Getting started
 
-Install the skills into Claude Code. No API key: they run on your Claude
-subscription.
+Installing Soothsayer means putting its skills where Claude Code can find them. It
+takes a few minutes, once, and needs no API key.
+
+**Before you start**, make sure Claude Code is working, and that you have `git` and
+**Python 3.10+** (both standard on macOS). Check with `git --version` and
+`python3 --version`.
+
+**Install** (macOS and Linux). In a terminal:
 
 ```
 git clone https://github.com/DrDonDon/soothsayer.git
@@ -91,9 +97,13 @@ cd soothsayer
 ./install
 ```
 
-Restart Claude Code, then start with `/sooth-define`. Remove them later with
-`./uninstall`. You need Python 3.10+ for the checking engine (standard on macOS and
-Linux).
+Then **restart Claude Code** and type `/sooth-define` to start. If it begins asking
+you to define a problem, you are set. Update later with `git pull && ./install`,
+remove with `./uninstall`.
+
+On **Windows**, run the same steps inside WSL or Git Bash. Full step-by-step
+instructions, prerequisites, and troubleshooting are in
+**[INSTALL.md](INSTALL.md)**.
 
 To see the checks on their own, without Claude Code:
 

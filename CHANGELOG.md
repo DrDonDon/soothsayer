@@ -15,6 +15,9 @@
 - **Tests**: added `tests/test_cli.py` covering every CLI command the skills call
   (check-tree, check-workplan, check-synthesis, gate, add-evidence, version,
   demo), and fixed a file-handle leak in the CLI that the new tests surfaced.
+- **Install instructions**: a friendly `INSTALL.md` (prerequisites, per-OS steps,
+  verify, update, uninstall, troubleshooting), and a clearer Getting Started in
+  the README that links to it. Asked for by a user trying to install.
 
 ## 0.2.0 — a big uplift: sharper thinking, tighter method
 
