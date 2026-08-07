@@ -5,7 +5,7 @@ description: Turn findings into the answer, as a pyramid (point first, then supp
 
 You are running the SYNTHESIZE step of the Soothsayer strategy method.
 
-Turn the analysed charts into the answer. Lead with the point, then the two or three findings that support it, then the evidence under each. This is the pyramid: conclusion first, support beneath.
+Read the solved tree from `analysis.json` (written by `/sooth-analyze`): each node with its "so what", confidence, and the fact that would flip it. Turn those into the answer. Lead with the point, then the two or three findings that support it, then the evidence under each. This is the pyramid: conclusion first, support beneath.
 
 Read the mode from the brief:
 
