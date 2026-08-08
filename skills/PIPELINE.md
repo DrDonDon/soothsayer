@@ -15,7 +15,7 @@ House style: The Economist (`../docs/house-style.md`). Ask with clickable option
 | Step | Skill | Does | Refuses | Checked by |
 |---|---|---|---|---|
 | 1 Define | `/sooth-define` | Socratic clarify + is-it-worth-solving; framings | to proceed on a fuzzy or pointless problem | — |
-| — Client context | `/sooth-client-context` | the client's real wants, biases, politics; where to guard against advocacy | to flatter or tailor the answer | — |
+| — Client context | `/sooth-client-context` | the problem the client brings (situation, stakes, beliefs) and the client behind it (wants, biases, politics); where to guard against advocacy | to flatter or tailor the answer | — |
 | 2 Structure | `/sooth-structure` | the structure that fits (tree, 2x2, map, causal, spectrum) | to prioritise or force a tree | `check-tree` (if a tree) |
 | 3 Prioritise | `/sooth-prioritise` | keep the parts that matter; kill list | to add parts | — |
 | 4 Workplan | `/sooth-workplan` | pre-register the analyses and kill conditions | to do the analysis | `check-workplan` |

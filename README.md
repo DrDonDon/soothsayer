@@ -42,7 +42,7 @@ clickable options, so you pick a tile rather than typing.
 | Skill | What it does |
 |---|---|
 | `/sooth-define` | Clarifies the problem and tests whether it is worth solving, with hard Socratic questions. The most important step. |
-| `/sooth-client-context` | Understands the client: what they really want, their biases and politics, and where the work must be guarded against telling them what they want to hear. Run early. |
+| `/sooth-client-context` | Understands the problem the client brings (their situation, what is at stake, what they already believe) and the client behind it (real wants, biases, politics), and where the work must be guarded against telling them what they want to hear. Run early. |
 | `/sooth-structure` | Structures the problem the way that fits it: a tree, a 2x2, a system map, a causal chain. Not always a tree. |
 | `/sooth-prioritise` | Keeps the parts that matter, on impact, influence, and knowability, and says why it dropped the rest. |
 | `/sooth-workplan` | Pre-registers the analyses, and what finding would change your answer, before you look. |
