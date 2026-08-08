@@ -1,5 +1,27 @@
 # Changelog
 
+## 0.3.0 — node-driven analysis, richer client context
+
+- **`/sooth-analyze` now solves each node of the structure**, rather than spraying
+  ten reasoning methods thinly across a few big questions. For each surviving part
+  of the tree it picks the reasoning that fits, reasons to a mechanism-level answer
+  with a range and the one fact that would flip it, then tries to disprove it. It
+  refuses shallow, generic, or fabricated answers; a node it cannot answer from the
+  store returns an honest "unresolved, needs X" instead of a recalled number.
+- **New `docs/reasoning-protocol.md`**: the per-node loop, the depth bar, tree-type
+  roll-up, the document-mediated research callback, and the `analysis.json` shape,
+  in one place.
+- **`analysis.json` artifact**: `/sooth-analyze` writes the solved tree so it
+  survives the stateless hand-off, and `/sooth-synthesize` now reads it. Same
+  documents-as-memory pattern as `structure.json` and `synthesis.json`.
+- **`/sooth-client-context` gathers the problem, not just the client**: a new
+  section collects the client's own account of their situation, what is at stake,
+  what they already believe (fact versus assumption), the terrain, and the
+  constraints, before `/sooth-define` challenges it.
+- **Repo hygiene**: per-run pipeline outputs (`structure.json`, `workplan.json`,
+  `analysis.json`, `synthesis.json`, working papers) are git-ignored, so a run's
+  engagement data can never be committed.
+
 ## 0.2.1 — client context, falsification, and easier install
 
 - **New skill `/sooth-client-context`**: understand the client's real wants,
