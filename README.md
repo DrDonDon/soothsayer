@@ -47,7 +47,7 @@ clickable options, so you pick a tile rather than typing.
 | `/sooth-prioritise` | Keeps the parts that matter, on impact, influence, and knowability, and says why it dropped the rest. |
 | `/sooth-workplan` | Pre-registers the analyses, and what finding would change your answer, before you look. |
 | `/sooth-research` | Gathers evidence into a store, every figure traced to a real, dated source. |
-| `/sooth-analyze` | Reasons over the evidence with a range of methods, in parallel, to test competing answers. |
+| `/sooth-analyze` | Solves each part of the structure to a mechanism-level answer, picking the reasoning that fits and testing competing hypotheses per node, rather than spraying methods thinly. |
 | `/sooth-synthesize` | Converges on the answer, and says what it beat. |
 | `/sooth-communicate` | Writes the decision pack or the briefing paper. |
 | `/sooth-inhouse` | Reviews from the inside: is this true about us? |
