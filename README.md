@@ -42,12 +42,12 @@ clickable options, so you pick a tile rather than typing.
 | Skill | What it does |
 |---|---|
 | `/sooth-define` | Clarifies the problem and tests whether it is worth solving, with hard Socratic questions. The most important step. |
-| `/sooth-client-context` | Understands the client: what they really want, their biases and politics, and where the work must be guarded against telling them what they want to hear. Run early. |
+| `/sooth-client-context` | Understands the problem the client brings (their situation, what is at stake, what they already believe) and the client behind it (real wants, biases, politics), and where the work must be guarded against telling them what they want to hear. Run early. |
 | `/sooth-structure` | Structures the problem the way that fits it: a tree, a 2x2, a system map, a causal chain. Not always a tree. |
 | `/sooth-prioritise` | Keeps the parts that matter, on impact, influence, and knowability, and says why it dropped the rest. |
 | `/sooth-workplan` | Pre-registers the analyses, and what finding would change your answer, before you look. |
 | `/sooth-research` | Gathers evidence into a store, every figure traced to a real, dated source. |
-| `/sooth-analyze` | Reasons over the evidence with a range of methods, in parallel, to test competing answers. |
+| `/sooth-analyze` | Solves each part of the structure to a mechanism-level answer, picking the reasoning that fits and testing competing hypotheses per node, rather than spraying methods thinly. |
 | `/sooth-synthesize` | Converges on the answer, and says what it beat. |
 | `/sooth-communicate` | Writes the decision pack or the briefing paper. |
 | `/sooth-inhouse` | Reviews from the inside: is this true about us? |

@@ -15,12 +15,12 @@ House style: The Economist (`../docs/house-style.md`). Ask with clickable option
 | Step | Skill | Does | Refuses | Checked by |
 |---|---|---|---|---|
 | 1 Define | `/sooth-define` | Socratic clarify + is-it-worth-solving; framings | to proceed on a fuzzy or pointless problem | — |
-| — Client context | `/sooth-client-context` | the client's real wants, biases, politics; where to guard against advocacy | to flatter or tailor the answer | — |
+| — Client context | `/sooth-client-context` | the problem the client brings (situation, stakes, beliefs) and the client behind it (wants, biases, politics); where to guard against advocacy | to flatter or tailor the answer | — |
 | 2 Structure | `/sooth-structure` | the structure that fits (tree, 2x2, map, causal, spectrum) | to prioritise or force a tree | `check-tree` (if a tree) |
 | 3 Prioritise | `/sooth-prioritise` | keep the parts that matter; kill list | to add parts | — |
 | 4 Workplan | `/sooth-workplan` | pre-register the analyses and kill conditions | to do the analysis | `check-workplan` |
 | 5 Research | `/sooth-research` | gather sourced evidence into the store | recalled numbers; letting off-plan take over | `add-evidence` (T0 ban) |
-| 6 Analyse | `/sooth-analyze` | competing hypotheses tested with many reasoning methods, in parallel | to converge or recommend | `gate` |
+| 6 Analyse | `/sooth-analyze` | solve each node of the structure to a mechanism-level answer; competing hypotheses per node; write `analysis.json` | to converge or recommend | `gate` |
 | 7 Synthesise | `/sooth-synthesize` | converge; say what the answer beat | any fact not in the store | `check-synthesis` |
 | — Communicate | `/sooth-communicate` | the pack (decision) or briefing paper (perspective) | to bend a finding for a cleaner story | — |
 
@@ -28,9 +28,11 @@ House style: The Economist (`../docs/house-style.md`). Ask with clickable option
 
 Deductive, inductive, abductive, analogical, causal, probabilistic, falsification
 (assume the opposite and try to disprove the thesis), thought experiments,
-first-principles, systems. Run several on each key question, in parallel, and
-cross-check them, then run a disproof pass on any favoured answer. Deliberately
-more exhaustive than a human, because a reasoning step is cheap.
+first-principles, systems. The unit of work is the node: for each part of the
+structure, pick the one or two methods that fit and push them to a mechanism-level
+answer with a range and the fact that would flip it, then run the disproof pass. Depth
+per node, not a thin spray across every question. The full loop is in
+`../docs/reasoning-protocol.md`.
 
 ## Reviews at three checkpoints
 

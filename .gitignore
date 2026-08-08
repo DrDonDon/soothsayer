@@ -6,3 +6,10 @@ dist/
 .soothsayer/
 .venv/
 .DS_Store
+
+# Per-run pipeline outputs (may hold client / engagement data — keep them out of the repo)
+/structure.json
+/workplan.json
+/analysis.json
+/synthesis.json
+/working-paper*.md
