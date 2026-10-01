@@ -406,3 +406,289 @@ Stop: CONVERGENCE
 
 > The new 'Profile schema and controls' table maps most triggers to fields and controls, but the Roaming pack description still triggers on 'travel booked' with no such field, and 'slow speeds', 'degraded service' and 'eligible to upgrade' also have no fields.
 <!-- gstack:office-hours:concerns:end -->
+
+---
+
+# Eng Review (/plan-eng-review, 2026-10-01)
+
+Target: docs/designs/laya-telco-component-poc.md (this file). Report file: this file.
+
+## Scope record
+
+feature answers: D1 = Defer detect + policy with trigger (build only if ambiguous agreement on the tuning set is below 4 of 6; decide on the tuning set before the single hold-out run); structure: D2 = A, Smaller arrangement; accepted scope: single-mode Laya `choice` POC laid out as `laya_poc.py` (components, `decide()`, FastAPI app, `python -m laya_poc run` CLI), `static/index.html`, `scenarios.json`, `Makefile`, `tests/test_laya_poc.py`; pending remedies: R1-R4 below.
+
+Scope Challenge result: scope reduced per recommendation (detect + policy deferred).
+
+## Scope Challenge findings
+
+Carried from the office-hours spec review (R2-*), resolved here:
+
+1. [P2] (confidence 9/10) Design: "Roaming pack | overseas or travel booked" has no `travel` booked field; "slow speeds", "degraded service", "eligible to upgrade" likewise (R2-1). **Correction, required for the approved component set:** add `travel.trip_booked_days_out`, `network.speed_degraded`, `upgrade_eligible` to the schema and mock controls, or reword descriptions to reference only existing fields.
+2. [P3] (9/10) Targets are absolute counts but adjudication may drop scenarios (R2-2). **Correction:** replace any dropped scenario with a newly adjudicated one so the live set stays exactly 30 (6 ambiguous) and the hold-out exactly 10 (2 ambiguous).
+3. [P2] (9/10) "Run both in the CLI" vs "try ... if ambiguous agreement is poor" (R2-4), and no selection rule (R2-5). **Resolved by D1.** R2-6 (detect + policy confidence/fallback contract) and R2-7 (does it share one pass?) become preconditions if the trigger fires; the Laya Node README states "Every question of one systemOne call is batched into a single run; a call with three questions takes about 140 ms", so expect higher latency and measure it separately.
+4. [P2] (9/10) `make demo` "opens index.html" with no origin stated (R2-9). **Correction, required for the approved offline demo:** FastAPI serves `static/` from the same origin; no CORS.
+5. [P3] (9/10) Open Question 2 says 30 scenarios (R2-13); Open Questions numbered 1,2,3,5,4 with a committed contingency inside them (R2-14). **Correction:** 40 scenarios; latency contingency moved to Next Steps.
+6. R2-3 (latency readout vs debounce), R2-8 (Python vs Node runtime), R2-10/R2-11 (cost estimate inputs): decisions, see ledger R1-R3.
+
+## Decision ledger
+
+### R1: Laya runtime for the POC
+Finding: Scope #6 (R2-8), P2, confidence 8/10, Open Question 3 ("Python reference package ... vs @receptron/laya (Node, ONNX Runtime)"), reviewer: spec review round 2
+Plan baseline: undecided; Open Question 3 allows either; architecture says FastAPI
+Runtime evidence: Node port README: ONNX fp32 ~1.7 GB, "output matches the Python implementation to four decimal places", 3-question call ~140 ms on Apple-silicon CPU. Python path not probed (egress to huggingface.co blocked in this session).
+Comparison grid:
+| Choice | Current | A | B |
+|---|---|---|---|
+| R1 runtime | undecided | Python reference (PyTorch), FastAPI | Node @receptron/laya (ONNX), Node HTTP server, same /decide contract |
+| int8 quantisation contingency | in Next Steps | PyTorch dynamic int8 or export to ONNX | ONNX int8 export |
+Question D3: see AskUserQuestion D3 (copied verbatim)
+Header: Runtime
+Options:
+A) Python reference (recommended)
+B) Node ONNX port
+State: approved
+Actual answer: A) Python reference (D3, 2026-10-01)
+Accepted scope: Laya Python reference (PyTorch) inside laya_poc.py behind FastAPI; ONNX/int8 export only as the latency contingency. Record runtime, weight format and torch thread count with every latency number.
+History: none
+
+### R2: Basis for the cost-per-1M estimate
+Finding: Scope #6 (R2-10, R2-11), P2, confidence 8/10, Success Criteria "Cost per 1M = (named cloud instance $/hour ÷ 3600) ÷ throughput × 1M", reviewer: spec review round 2
+Plan baseline: formula approved in office hours; instance, price and which throughput feeds it unspecified
+Runtime evidence: none (not yet measured)
+Comparison grid:
+| Choice | Current | A | B |
+|---|---|---|---|
+| Instance basis | unnamed | one named AU-region general-purpose CPU instance, list price recorded with date | no cloud mapping; report laptop decisions/sec only |
+| Throughput feeding formula | unspecified | concurrency-1 (conservative); concurrency-4 shown as context | n/a |
+| Presentation | single figure | range: formula result to 2x it, captioned as laptop-derived estimate | laptop-only figure |
+Question D4: see AskUserQuestion D4 (copied verbatim)
+Header: Cost basis
+Options:
+A) Named instance, range (recommended)
+B) Laptop throughput only
+State: approved
+Actual answer: A) Named instance, range (D4, 2026-10-01)
+Accepted scope: name one AU-region general-purpose CPU instance with dated list price; concurrency-1 throughput feeds the formula, concurrency-4 shown as context; present cost per 1M as a range (estimate to 2x estimate) captioned "laptop-derived; measured on a VM in phase 2"; record laptop CPU model.
+History: none
+
+### R3: Slider responsiveness and what the latency readout shows
+Finding: Scope #6 (R2-3), P2, confidence 8/10, design "Debounce slider input (~150 ms after the last change)" vs whoa moment "fast enough to feel instant (target: under 150 ms ... shown live)", reviewer: spec review round 2
+Plan baseline: 150 ms trailing debounce; single latency readout, meaning unstated
+Runtime evidence: none (UI not built)
+Comparison grid:
+| Choice | Current | A | B |
+|---|---|---|---|
+| Input pacing | 150 ms debounce | throttle: at most one request in flight, plus one trailing request with the latest state | keep 150 ms debounce |
+| Readout | one number, unstated | two numbers: "Laya: N ms" (server-timed model call) and "screen: N ms" (input to render) | one number labelled "Laya model time" |
+| Stale responses | ignored by sequence number (approved) | unchanged | unchanged |
+Question D5: see AskUserQuestion D5 (copied verbatim)
+Header: Slider feel
+Options:
+A) Throttle + two readouts (recommended)
+B) Debounce + model-only readout
+State: approved
+Actual answer: A) Throttle + two readouts (D5, 2026-10-01)
+Accepted scope: replace 150 ms debounce with throttle (one request in flight plus a trailing request carrying the latest state); show "Laya: N ms" (server-timed model call) and "screen: N ms" (input to render); stale responses still dropped by sequence number.
+History: none
+
+### R4: Test framework and depth
+Finding: Section 3, P2, confidence 8/10, design Pieces 1-4 (fallback rule, scoring rule, token checks, scenario schema) have no stated tests, reviewer: plan-eng-review
+Plan baseline: no tests specified; no framework chosen
+Runtime evidence: none (POC not built). Host repo uses pytest (tests/test_cli.py etc.) but the POC lives outside it.
+Comparison grid:
+| Choice | Current | A | B |
+|---|---|---|---|
+| Framework | none | pytest | pytest |
+| Unit tests with a fake Laya | none | yes: fallback branch, scoring counts, scenario validation, results metadata | yes, same |
+| Real-model tests (marked slow, offline weights) | none | yes: 192/512 token checks against real tokenizer, one known scenario decides correctly, warm-up completes | no |
+Question D6: see AskUserQuestion D6 (copied verbatim)
+Header: Tests
+Options:
+A) Unit + slow real-model (recommended)
+B) Unit tests only
+State: approved
+Actual answer: A) Unit + slow real-model (D6, 2026-10-01)
+Accepted scope: pytest; fake-Laya unit tests for fallback, scoring, scenario validation, results metadata; `-m slow` tests on real offline weights for 192/512 token budgets, one known scenario, and warm-up.
+History: none
+
+Approval readiness: PASS (R1 ← D3, R2 ← D4, R3 ← D5, R4 ← D6; scope ← D1, D2)
+
+## 1. Architecture review
+
+```
+ browser (static/index.html, same origin)          laya_poc.py (FastAPI, 127.0.0.1 only)
+ ┌───────────────────────────────┐                ┌────────────────────────────────────────┐
+ │ sliders ─▶ throttle (1 in     │  POST /decide  │ startup: load Laya (offline), validate │
+ │ flight + trailing latest) ────┼──{seq,state}──▶│  options ≤192 tok, warm up 20 calls,   │
+ │                               │                │  then /health = ready                  │
+ │ drop if seq < latest ◀────────┼─{seq,raw_pick, │ decide(state):                         │
+ │ render card + badge           │  shown,probs,  │   state ≤512 tok? else 422             │
+ │ "Laya N ms · screen N ms"     │  conf,fell_back│   lock ─▶ laya.system_one ─▶ timed ms  │
+ │ server down ─▶ "Laya offline" │  laya_ms}      │   conf < threshold ─▶ Account overview │
+ │ Run scenarios ─▶ GET /scenarios│◀──────────────│ GET /components, /scenarios, /health   │
+ └───────────────────────────────┘                └────────────────────────────────────────┘
+ CLI: python -m laya_poc run --split tune|holdout ─▶ same decide() ─▶ results/<ts>.json
+```
+
+1. [P1] (confidence 8/10) Design Pieces 2 / Success "Cold start reported separately": nothing says when the 1.7 GB model loads. If it loads lazily, the first slider drag in the room stalls for seconds. **Required by approved contracts:** load and warm up (20 discarded calls, as already specified) in FastAPI startup; `/health` returns ready only after warm-up; the page shows "warming up" until ready.
+2. [P2] (8/10) Scenario runner and slider can both call `/decide`; concurrent PyTorch calls oversubscribe CPU threads and pollute the latency numbers. **Required by the approved measurement contract:** sync endpoint, one process-wide lock around the model call; timing measured inside the lock.
+3. [P2] (8/10) No behaviour when the server is down or returns an error: the phone would keep showing a stale card silently. **Edge case, in scope:** grey out the card with a "Laya offline" banner; scenario runner stops and reports the failed scenario.
+4. [P3] (9/10) Bind to 127.0.0.1 only; synthetic data, but no reason to expose a port on venue Wi-Fi.
+
+## 2. Code quality review
+
+1. [P2] (8/10) Design "scenarios.json: 40 synthetic profiles, each {id, state, expected, reason, ambiguous, competing, split}": malformed scenarios (typo in a component name, wrong split counts) would silently score as misses. **Required:** validate at load: unique ids; `expected` and `competing` in the 10 components; exactly 30 tune (6 ambiguous) and 10 holdout (2 ambiguous); every state ≤512 tokens. Fail loudly.
+2. [P3] (8/10) The component list would exist in Python and again in index.html card templates. Serve `GET /components` so the page renders from one list; card templates keyed by component id.
+3. [P2] (8/10) Approved D3/D4 require recording runtime, weights revision, torch threads, CPU model and threshold with every number. **Required:** CLI writes `results/<timestamp>.json` with that metadata plus per-scenario raw pick, shown component, confidence and ms; the demo's numbers come from a named results file.
+
+## 3. Test review
+
+Framework: pytest (approved D6). Proposed file: `tests/test_laya_poc.py`.
+
+```
+CODE PATHS                                              USER FLOWS
+[+] laya_poc.py                                         [+] Live slider demo
+  ├── load_components() / option budget                   ├── [GAP] [→E2E] drag usage 40→95%, card swaps to Add data pack
+  │   ├── [GAP] fits 192 tok (slow, real tokenizer)       ├── [GAP] rapid drag: stale response dropped (manual check)
+  │   └── [GAP] over budget ─▶ startup error              └── [GAP] server down ─▶ "Laya offline" banner (manual check)
+  ├── load_scenarios()                                  [+] Scenario run
+  │   ├── [GAP] valid file loads                          ├── [GAP] Run tune set ─▶ counter matches CLI results file
+  │   ├── [GAP] bad component / bad split counts ─▶ error └── [GAP] fell-back scenarios marked "fell back"
+  │   └── [GAP] state >512 tok ─▶ error (slow)          [+] Startup
+  ├── decide(state)                                       └── [GAP] page shows "warming up" until /health ready
+  │   ├── [GAP] conf ≥ threshold ─▶ shown = raw_pick
+  │   ├── [GAP] conf < threshold ─▶ Account overview, fell_back
+  │   └── [GAP] state >512 tok ─▶ 422
+  ├── score(results)
+  │   ├── [GAP] raw agreement, ambiguous agreement
+  │   └── [GAP] fallback catches vs suppressions
+  └── run CLI ─▶ results JSON
+      └── [GAP] metadata fields present
+Laya accuracy: [→EVAL] the tune/holdout scenario run is the eval; baseline = human labels
+
+COVERAGE: 0/17 paths tested (new code)  |  GAPS: 17 (1 E2E, 1 eval, 3 manual)
+```
+
+Proposed tests (all in `tests/test_laya_poc.py`; fake Laya returns fixed probabilities unless marked slow):
+- `test_decide_above_threshold_shows_raw_pick` / `test_decide_below_threshold_falls_back`. Value: protects=fallback rule; fails_when=comparison inverted or threshold ignored; why_new=no tests exist; seam=none (decide takes the model as an argument).
+- `test_score_counts_catches_and_suppressions` (table-driven). Value: protects=reported accuracy and fallback figures; fails_when=scoring uses shown instead of raw pick; why_new=new; seam=none.
+- `test_load_scenarios_rejects_bad_component_and_split_counts` (table-driven). Value: protects=scenario integrity; fails_when=validation removed; why_new=new; seam=none.
+- `test_results_file_has_run_metadata`. Value: protects=reproducible numbers; fails_when=a metadata field dropped; why_new=new; seam=none.
+- `@slow test_option_block_fits_192_tokens`, `@slow test_all_states_fit_512_tokens`, `@slow test_known_scenario_decides_add_data_pack`, `@slow test_startup_warmup_then_health_ready`. Value: protects=real-model contracts a fake cannot prove; fails_when=description edits overflow budget or offline load breaks; why_new=new; seam=none.
+- Manual pre-demo checklist (Wi-Fi off): rapid drag, server killed mid-demo, full tune run. E2E automation not worth it for a one-off demo.
+
+Tests made obsolete by this plan: none.
+
+## 4. Performance review
+
+1. [P2] (8/10) Approved D3: PyTorch on CPU. **Required:** `torch.inference_mode()`, explicit `torch.set_num_threads(N)` recorded in results; model in eval mode.
+2. [P3] (7/10) Memory: approved "measure peak RSS"; add it to the results metadata.
+3. Latency contingency (moved from Open Questions per Scope #5): thread tuning, then ONNX/int8 export (re-check accuracy on the tune set), then a shorter state; else revise the target and say why.
+
+## Outside voice
+
+Codex not installed; native fallback requires TaskOutput, which this session lacks. Outside coverage: unavailable. Install: `npm install -g @openai/codex`.
+
+## TODOS.md updates
+
+None proposed. Phase 2 items (Jev, rules and LLM baselines, cloud VM measurement) already live in this doc's Approaches and Success Criteria.
+
+## NOT in scope
+
+- Detect + policy mode: deferred behind the D1 trigger.
+- Jev, rules engine, general LLM baselines: phase 2 (office hours).
+- Cloud VM latency/cost measurement: phase 2; D4 range estimate stands in.
+- Automated browser E2E: manual pre-demo checklist instead (one-off demo).
+- Multilingual checkpoint: English only unless needed.
+
+## What already exists
+
+- Laya Python reference (`system_one` choice API) and its tokenizer: reused for decisions and token checks, not rebuilt.
+- `@receptron/laya`: not used (D3); its README is the source for the single-pass batching and option-budget limits.
+- FastAPI static file serving: reused for same-origin page delivery.
+
+## Failure modes
+
+| Path | Realistic failure | Handling | Test | User sees |
+|---|---|---|---|---|
+| Startup | weights missing offline | startup error naming `make fetch` | slow warm-up test | clear error |
+| Startup | option block >192 tok after a wording edit | startup error | slow budget test | clear error |
+| /decide | state >512 tok | 422 | unit + slow test | clear error |
+| /decide | server crashed | "Laya offline" banner | manual checklist | clear message |
+| Slider | out-of-order responses | seq drop | manual checklist | no flicker |
+| Scoring | raw vs shown mixed up | table-driven test | unit | n/a |
+
+Critical gaps: 0.
+
+## Worktree parallelization strategy
+
+Sequential implementation, no parallelization opportunity (one module plus one page).
+
+## Implementation Tasks
+Synthesized from this review's findings. Each task derives from a specific finding above. Run with Claude Code or Codex; checkbox as you ship.
+
+- [ ] **T1 (P1, human: ~1h / CC: ~10min)**: runtime: latency spike on the demo laptop (Python reference, 500 warm decisions, p50/p95, peak RSS, threads)
+  - Surfaced by: Performance #1, R1/D3
+  - Files: laya_poc.py
+  - Verify: printed p95 vs 150 ms; contingency if over
+- [ ] **T2 (P1, human: ~3h / CC: ~20min)**: laya_poc.py: components, startup load + warm-up + /health, locked decide() with fallback, /components, /scenarios, 127.0.0.1
+  - Surfaced by: Architecture #1, #2, #4; Code quality #2
+  - Files: laya_poc.py
+  - Verify: pytest unit tests; `curl /health`
+- [ ] **T3 (P1, human: ~2h / CC: ~15min)**: scenario validation + CLI runner writing results JSON with metadata and scoring
+  - Surfaced by: Code quality #1, #3; R2/D4
+  - Files: laya_poc.py, scenarios.json
+  - Verify: `python -m laya_poc run --split tune`
+- [ ] **T4 (P1, human: ~3h / CC: ~20min)**: static/index.html: throttle + seq drop, two readouts, fallback badge, offline banner, warming-up state, scenario runner
+  - Surfaced by: R3/D5; Architecture #3
+  - Files: static/index.html
+  - Verify: manual pre-demo checklist
+- [ ] **T5 (P2, human: ~4h / CC: ~20min)**: tests/test_laya_poc.py: unit (fake Laya) + `-m slow` real-model tests
+  - Surfaced by: Test review, R4/D6
+  - Files: tests/test_laya_poc.py
+  - Verify: `pytest` and `pytest -m slow`
+- [ ] **T6 (P2, human: ~30min / CC: ~5min)**: schema fields (trip_booked_days_out, speed_degraded, upgrade_eligible), scenario replacement rule, Makefile fetch/demo split
+  - Surfaced by: Scope #1, #2, #4
+  - Files: laya_poc.py, scenarios.json, Makefile
+  - Verify: `make fetch` online, then `make demo` with Wi-Fi off
+
+Effort ratios assumed: features ~30x, tests ~50x, research ~3x.
+
+## Unresolved decisions
+
+None.
+
+## Completion summary
+
+- Step 0: Scope Challenge: scope reduced per recommendation (detect + policy deferred, smaller arrangement)
+- Architecture Review: 4 issues found
+- Code Quality Review: 3 issues found
+- Test Review: diagram produced, 17 gaps identified
+- Performance Review: 2 issues found
+- NOT in scope: written
+- What already exists: written
+- TODOS.md updates: 0 items proposed to user
+- Failure modes: 0 critical gaps flagged
+- Unresolved decisions: 0 in this review
+- Outside voice: codex, unavailable (not installed; no TaskOutput for native fallback)
+- Parallelization: 1 lane, 0 parallel / 1 sequential
+- Lake Score: 4/4 = 10/10 choices / answered coverage choices (D1, D4, D5, D6)
+
+## Suppressed findings (appendix)
+
+- [P3] (confidence 4/10) Laya may re-tokenize the 10-option block on every call; caching it could cut latency. Unverified: Laya Python internals not read (huggingface.co blocked here). Check during T1.
+
+## GSTACK REVIEW REPORT
+
+| Review | Trigger | Why | Runs | Status | Findings |
+|--------|---------|-----|------|--------|----------|
+| CEO Review | `/plan-ceo-review` | Scope & strategy | 0 | — | — |
+| Outside Review | codex (plan-review) | Independent 2nd opinion | 1 | unavailable | not installed; no native fallback (TaskOutput missing) |
+| Eng Review | `/plan-eng-review` | Architecture & tests (required) | 1 | ISSUES OPEN | 26 issues, 0 critical gaps (all mapped to T1-T6) |
+| Design Review | `/plan-design-review` | UI/UX gaps | 0 | — | — |
+| DX Review | `/plan-devex-review` | Developer experience gaps | 0 | — | — |
+
+- **OUTSIDE COVERAGE:** codex, plan-review phase, unavailable (CLI not installed; native fallback lacked TaskOutput). No outside findings.
+- **VERDICT:** No reviews CLEAR. Eng review ran with all decisions resolved; issues are mapped implementation tasks, not open questions. eng review required
+
+NO UNRESOLVED DECISIONS
